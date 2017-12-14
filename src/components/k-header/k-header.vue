@@ -5,33 +5,51 @@
         <ul class="client-menu-list">
           <li>
             <img src="../../common/image/icon/me.png"/>
-            <router-link class="text" tag="span" to="/me">我的KeepMoving</router-link>
+            <span>
+              <router-link class="text" tag="a" to="/me">我的KeepMoving</router-link>
+            </span>
           </li>
           <li>
             <img src="../../common/image/icon/login.png"/>
-            <router-link class="text" tag="span" to="/login">登录</router-link>
+            <span>
+              <router-link class="text" tag="a" to="/login">登录</router-link>
+            </span>
           </li>
           <li>
             <img src="../../common/image/icon/collect.png"/>
-            <router-link class="text" tag="span" to="/collection">收藏</router-link>
+            <span>
+              <router-link class="text" tag="a" to="/collection">收藏</router-link>
+            </span>
           </li>
           <li>
             <img src="../../common/image/icon/shoppingcart.png"/>
-            <router-link class="text" tag="span" to="/shopping_cart">购物车</router-link>
+            <span>
+              <router-link class="text" tag="a" to="/shopping_cart">购物车</router-link>
+            </span>
           </li>
         </ul>
       </div>
     </div>
-    <router-link to="/" class="header-pic" tag="div">
+    <router-link to="/" class="header-pic" tag="a">
       <img src='../../../static/title.png'/>
     </router-link>
     <div class="categories">
       <ul class="categories-list">
-        <router-link tag="li" class="categories-list-detail" to="/male">男士</router-link>
-        <router-link tag="li" class="categories-list-detail" to="/female">女士</router-link>
-        <router-link tag="li" class="categories-list-detail" to="/child">儿童</router-link>
-        <router-link tag="li" class="categories-list-detail" to="/new">新品</router-link>
-        <router-link tag="li" class="categories-list-detail" to="/sale">大减价</router-link>
+        <li class="categories-list-detail">
+          <router-link tag="a" to="/male">男士</router-link>
+        </li>
+        <li class="categories-list-detail">
+          <router-link tag="a" to="/female">女士</router-link>
+        </li>
+        <li class="categories-list-detail">
+          <router-link tag="a" to="/child">儿童</router-link>
+        </li>
+        <li class="categories-list-detail">
+          <router-link tag="a" to="/new">新品</router-link>
+        </li>
+        <li class="categories-list-detail">
+          <router-link tag="a" to="/sale">大减价</router-link>
+        </li>
       </ul>
       <div class="search-wrapper">搜索框</div>
     </div>
@@ -42,7 +60,9 @@
   export default {}
 </script>
 
-<style scoped  lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  a
+    color: #000000
   .header-wrapper
     position: relative
     padding: 15px 0 30px 0
@@ -63,10 +83,12 @@
             img
               height: 16px
               width: 16px
-            .text
-              margin-left: 4px
-              &:hover
-                color: #808080
+            span
+              .text
+                margin-left: 4px
+                &:hover
+                  transition: all 0.3s
+                  color: #808080
     .header-pic
       position: absolute
       width: 100%
@@ -94,6 +116,7 @@
           font-weight: 600
           letter-spacing: 1px
           &:hover
+            transition: all 0.2s
             padding-bottom: 4px
             border-bottom: 2px solid #ffA500
       .search-wrapper
