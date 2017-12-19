@@ -1,4 +1,5 @@
 <template>
+  <!-- vif 防止在异步未获取数据时 mounted已经执行初始化betterscroll-->
   <div v-if="banners.length" class="slider-wrapper">
     <slider>
       <div v-for="item in banners">

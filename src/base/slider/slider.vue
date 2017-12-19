@@ -57,6 +57,7 @@
       _setSliderWidth(isResize) {
         this.children = this.$refs.sliderGroup.children
         let width = 0
+        // 获取父容器可见内容宽度
         let sliderWidth = this.$refs.slider.clientWidth
         for (let i = 0; i < this.children.length; i++) {
           let child = this.children[i]
@@ -98,8 +99,10 @@
         })
       },
       _play() {
+        // 下一页
         let pageIndex = this.currentPageIndex + 1
         if (this.loop) {
+          // 循环模式加一
           pageIndex += 1
         }
         this.timer = setTimeout(() => {
