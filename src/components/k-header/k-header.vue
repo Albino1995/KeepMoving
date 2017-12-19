@@ -40,14 +40,14 @@
             @mouseover="overCategories(index)"
             @mouseleave="outCategories"
         >
-          <router-link tag="a" :to="`${item.link}`">{{item.name}}</router-link>
+          <router-link tag="a" class="select" :to="`${item.link}`">{{ item.name }}</router-link>
           <transition name="slide">
             <div class="pop-up-layer" v-show="showPopup === index">
             <ul>
               <li>
                 <div class="pop">
                   <router-link tag="a" class="item" :to="`${item.link}-sneakers`">
-                    <img src="../../common/image/icon/caide.jpg">
+                    <img :src="item.caide">
                     <p>踩的</p>
                   </router-link>
                 </div>
@@ -55,7 +55,7 @@
                <li>
                 <div class="pop">
                   <router-link tag="a" class="item" :to="`${item.link}-clothing`">
-                    <img src="../../common/image/icon/chuande.jpg">
+                    <img :src="item.chuande">
                     <p>穿的</p>
                   </router-link>
                 </div>
@@ -63,7 +63,7 @@
                <li>
                 <div class="pop">
                   <router-link tag="a" class="item" :to="`${item.link}-accessories`">
-                    <img src="../../common/image/icon/daide.jpg">
+                    <img :src="item.daide">
                     <p>戴的</p>
                   </router-link>
                 </div>
@@ -85,23 +85,38 @@
         categories: [
           {
             name: '男士',
-            link: 'male'
+            link: 'male',
+            caide: '/static/male_caide.jpg',
+            chuande: '/static/male_chuande.jpg',
+            daide: '/static/male_daide.jpg'
           },
           {
             name: '女士',
-            link: 'female'
+            link: 'female',
+            caide: '/static/female_caide.jpg',
+            chuande: '/static/female_chuande.jpg',
+            daide: '/static/female_daide.jpg'
           },
           {
             name: '儿童',
-            link: 'child'
+            link: 'child',
+            caide: '/static/child_caide.jpg',
+            chuande: '/static/male_chuande.jpg',
+            daide: '/static/male_daide.jpg'
           },
           {
             name: '新品',
-            link: 'new'
+            link: 'new',
+            caide: '/static/new.jpg',
+            chuande: '/static/new.jpg',
+            daide: '/static/new.jpg'
           },
           {
             name: '大减价',
-            link: 'sale'
+            link: 'sale',
+            caide: '/static/sale.jpg',
+            chuande: '/static/sale.jpg',
+            daide: '/static/sale.jpg'
           }
         ],
         showPopup: -1,
@@ -113,7 +128,7 @@
       },
       outCategories() {
           this.showPopup = -1
-      }
+      },
     }
   }
 </script>
@@ -163,7 +178,7 @@
       padding-bottom: 30px
       border-bottom: 0.5px solid #a9a9a9
       .categories-list
-        display inline
+        display: inline
         list-style-type: none
         margin: 0
         padding: 0
@@ -173,17 +188,18 @@
           font-size: 14px
           font-weight: 600
           letter-spacing: 1px
-          &:hover
-            transition: all 0.2s
-            padding-bottom: 4px
-            border-bottom: 2px solid #ffA500
+          .select
+            &:hover
+              transition: all 0.2s
+              padding-bottom: 4px
+              border-bottom: 1px solid #ffA500
           .pop-up-layer
             position: absolute
             padding: 15px 0 20px 0
             text-align: center
             width: 100%
             background-color: #ffffff
-            margin-top: 10px
+            margin-top: 6px
             z-index: 50
             ul
               li
