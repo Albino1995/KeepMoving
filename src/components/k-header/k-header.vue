@@ -35,20 +35,42 @@
     </router-link>
     <div class="categories">
       <ul class="categories-list">
-        <li class="categories-list-detail">
-          <router-link tag="a" to="/male">男士</router-link>
-        </li>
-        <li class="categories-list-detail">
-          <router-link tag="a" to="/female">女士</router-link>
-        </li>
-        <li class="categories-list-detail">
-          <router-link tag="a" to="/child">儿童</router-link>
-        </li>
-        <li class="categories-list-detail">
-          <router-link tag="a" to="/new">新品</router-link>
-        </li>
-        <li class="categories-list-detail">
-          <router-link tag="a" to="/sale">大减价</router-link>
+        <li v-for="(item, index) in categories"
+            class="categories-list-detail"
+            @mouseover="overCategories(index)"
+            @mouseleave="outCategories"
+        >
+          <router-link tag="a" :to="`${item.link}`">{{item.name}}</router-link>
+          <transition name="slide">
+            <div class="pop-up-layer" v-show="showPopup === index">
+            <ul>
+              <li>
+                <div class="pop">
+                  <router-link tag="a" class="item" :to="`${item.link}-sneakers`">
+                    <img src="../../common/image/icon/caide.jpg">
+                    <p>踩的</p>
+                  </router-link>
+                </div>
+              </li>
+               <li>
+                <div class="pop">
+                  <router-link tag="a" class="item" :to="`${item.link}-clothing`">
+                    <img src="../../common/image/icon/chuande.jpg">
+                    <p>穿的</p>
+                  </router-link>
+                </div>
+              </li>
+               <li>
+                <div class="pop">
+                  <router-link tag="a" class="item" :to="`${item.link}-accessories`">
+                    <img src="../../common/image/icon/daide.jpg">
+                    <p>戴的</p>
+                  </router-link>
+                </div>
+              </li>
+            </ul>
+          </div>
+          </transition>
         </li>
       </ul>
       <div class="search-wrapper">搜索框</div>
@@ -57,7 +79,43 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {}
+  export default {
+    data() {
+      return {
+        categories: [
+          {
+            name: '男士',
+            link: 'male'
+          },
+          {
+            name: '女士',
+            link: 'female'
+          },
+          {
+            name: '儿童',
+            link: 'child'
+          },
+          {
+            name: '新品',
+            link: 'new'
+          },
+          {
+            name: '大减价',
+            link: 'sale'
+          }
+        ],
+        showPopup: -1,
+      }
+    },
+    methods: {
+      overCategories(index) {
+        this.showPopup = index
+      },
+      outCategories() {
+          this.showPopup = -1
+      }
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -119,8 +177,30 @@
             transition: all 0.2s
             padding-bottom: 4px
             border-bottom: 2px solid #ffA500
+          .pop-up-layer
+            position: absolute
+            padding: 15px 0 20px 0
+            text-align: center
+            width: 100%
+            background-color: #ffffff
+            margin-top: 10px
+            z-index: 50
+            ul
+              li
+                display: inline-block
+                margin: 0 40px 0 40px
+                .pop
+                  .item
+                    display: block
+                    &:hover
+                      text-decoration: underline
+
       .search-wrapper
         position: absolute
         display: inline
         right: 30px
+  .slide-enter-active, .slide-leave-active
+    transition: all 0.4s
+  .slide-enter, .slide-leave-to
+    opacity: 0
 </style>
