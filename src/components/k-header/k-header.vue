@@ -119,7 +119,7 @@
             daide: '/static/sale.jpg'
           }
         ],
-        showPopup: -1,
+        showPopup: -1
       }
     },
     methods: {
@@ -127,8 +127,8 @@
         this.showPopup = index
       },
       outCategories() {
-          this.showPopup = -1
-      },
+        this.showPopup = -1
+      }
     }
   }
 </script>

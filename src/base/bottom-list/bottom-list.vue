@@ -53,10 +53,11 @@
         font-weight: 600
         letter-spacing: 3px
         padding-bottom: 15px
-        &:hover
-          transition: all 0.2s
-          color: #d3d3d
-          margin-top: 12px
-          padding-bottom: 12px
-          border-bottom: 0.5px solid #d3d3d3
+        a
+          &:hover
+            transition: all 0.2s
+            color: #d3d3d
+            margin-top: 12px
+            padding-bottom: 12px
+            border-bottom: 0.5px solid #d3d3d3
 </style>
