@@ -1,45 +1,70 @@
 <template>
   <!-- vif 防止在异步未获取数据时 mounted已经执行初始化betterscroll-->
-  <div v-if="banners.length" class="slider-wrapper">
-    <slider>
-      <div v-for="item in banners">
-        <a :href="item.link">
-          <img :src="item.image" height="75%" width="100%">
-        </a>
-      </div>
-    </slider>
+  <div class="home-wrapper">
+    <div v-if="banners.length" class="slider-wrapper">
+      <slider>
+        <div v-for="item in banners">
+          <a :href="item.link">
+            <img :src="item.image">
+          </a>
+        </div>
+      </slider>
+    </div>
+    <good-list :title="isNew" :goods="newGoods"></good-list>
+    <good-list :title="isHot" :goods="hotGoods"></good-list>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Slider from 'base/slider/slider'
-  import {getBanner} from 'api/api'
+  import GoodList from 'base/good-list/good-list'
+  import {getBanner, getGood} from 'api/api'
   export default {
     data() {
       return {
-        banners: []
+        banners: [],
+        newGoods: [],
+        hotGoods: [],
+        isNew: '新品上架',
+        isHot: '热销商品'
       }
     },
     created() {
       this._getSlide()
+      this._getNewGoods()
+      this._getHotGoods()
     },
     methods: {
       _getSlide() {
         getBanner().then((res) => {
           this.banners = res.data
         })
+      },
+      _getNewGoods() {
+        getGood({is_new: true}).then((res) => {
+          this.newGoods = res.data.results
+        })
+      },
+      _getHotGoods() {
+        getGood({is_hot: true}).then((res) => {
+          this.hotGoods = res.data.results
+        })
       }
     },
     components: {
-      Slider
+      Slider,
+      GoodList
     }
   }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .slider-wrapper
+  .home-wrapper
     position: relative
     width: 100%
-    overflow: hidden
     padding-bottom: 30px
+    .slider-wrapper
+      position: relative
+      width: 100%
+      overflow: hidden
 </style>
