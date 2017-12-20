@@ -40,13 +40,13 @@
             @mouseover="overCategories(index)"
             @mouseleave="outCategories"
         >
-          <router-link tag="a" class="select" :to="`${item.link}`">{{ item.name }}</router-link>
+          <router-link tag="a" class="select" :to="`/category/${item.link}/`">{{ item.name }}</router-link>
           <transition name="slide">
             <div class="pop-up-layer" v-show="showPopup === index">
             <ul>
               <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`${item.link}-sneakers`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`">
                     <img :src="item.caide">
                     <p>踩的</p>
                   </router-link>
@@ -54,7 +54,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`${item.link}-clothing`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`">
                     <img :src="item.chuande">
                     <p>穿的</p>
                   </router-link>
@@ -62,7 +62,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`${item.link}-accessories`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`">
                     <img :src="item.daide">
                     <p>戴的</p>
                   </router-link>
