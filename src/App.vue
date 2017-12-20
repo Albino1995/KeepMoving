@@ -2,8 +2,7 @@
   <div id="app">
     <k-header></k-header>
     <keep-alive>
-      <router-view>
-      </router-view>
+      <router-view></router-view>
     </keep-alive>
     <k-footer></k-footer>
   </div>
