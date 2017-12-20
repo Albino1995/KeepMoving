@@ -4,7 +4,7 @@
     <ul>
       <li v-for="item in IndexGoods">
         <div class="item">
-          <router-link tag="a" class="item-link" to="">
+          <router-link tag="a" class="item-link" :to="`/good/${item.goods_sn}`">
             <img :src="item.goods_front_image">
             <p>{{item.name}}</p>
             <p class="item-bottom">￥{{item.price}}</p>
