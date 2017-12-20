@@ -2,16 +2,16 @@
   <div>
     <ul>
       <li class="title footer-list-detail">
-        <router-link tag="a" :to="`${link}`">{{title}}</router-link>
+        <router-link tag="a" :to="`/category/${link}/`">{{title}}</router-link>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`${link}-sneakers`">踩的</router-link>
+        <router-link tag="a" :to="`/category/${link}/sneakers/`">踩的</router-link>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`${link}-clothing`">穿的</router-link>
+        <router-link tag="a" :to="`/category/${link}/clothing/`">穿的</router-link>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`${link}-accessories`">戴的</router-link>
+        <router-link tag="a" :to="`/category/${link}/accessories/`">戴的</router-link>
       </li>
     </ul>
   </div>
