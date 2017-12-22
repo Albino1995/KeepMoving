@@ -53,6 +53,17 @@
         this.slider.refresh()
       })
     },
+    activated() {
+      if (this.autoPlay) {
+        this._play()
+      }
+    },
+    deactivated() {
+      clearTimeout(this.timer)
+    },
+    beforeDestroy() {
+      clearTimeout(this.timer)
+    },
     methods: {
       _setSliderWidth(isResize) {
         this.children = this.$refs.sliderGroup.children
@@ -97,6 +108,11 @@
             this._play()
           }
         })
+        this.slider.on('beforeScrollStart', () => {
+          if (this.autoPlay) {
+            clearTimeout(this.timer)
+          }
+        })
       },
       _play() {
         // 下一页
@@ -109,9 +125,6 @@
           this.slider.goToPage(pageIndex, 0, 400)
         }, this.interval)
       }
-    },
-    destroyed() {
-      clearTimeout(this.timer)
     }
   }
 </script>
