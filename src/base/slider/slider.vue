@@ -93,6 +93,7 @@
           }
           this.currentPageIndex = pageIndex
           if (this.autoPlay) {
+            clearTimeout(this.timer)
             this._play()
           }
         })
