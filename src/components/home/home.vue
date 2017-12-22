@@ -42,12 +42,12 @@
       },
       _getNewGoods() {
         getGood({is_new: true}).then((res) => {
-          this.newGoods = res.data.results
+          this.newGoods = res.data.results.slice(0, 4)
         })
       },
       _getHotGoods() {
         getGood({is_hot: true}).then((res) => {
-          this.hotGoods = res.data.results
+          this.hotGoods = res.data.results.slice(0, 4)
         })
       }
     },

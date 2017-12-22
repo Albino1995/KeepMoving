@@ -2,7 +2,7 @@
   <div class="good-list">
     <span>{{title}}</span>
     <ul>
-      <li v-for="item in IndexGoods">
+      <li v-for="item in goods">
         <div class="item">
           <router-link tag="a" class="item-link" :to="`/good/${item.goods_sn}`">
             <img :src="item.goods_front_image">
@@ -27,12 +27,6 @@
         default: () => []
       }
     },
-    computed: {
-      // 首页只显示四条数据
-      IndexGoods() {
-        return this.goods.slice(0, 4)
-      }
-    }
   }
 </script>
 
