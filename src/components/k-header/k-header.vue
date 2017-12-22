@@ -46,7 +46,7 @@
             <ul>
               <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`" @click.native="reload()">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`">
                     <img :src="item.caide">
                     <p>踩的</p>
                   </router-link>
@@ -54,7 +54,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`" @click.native="reload()">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`">
                     <img :src="item.chuande">
                     <p>穿的</p>
                   </router-link>
@@ -62,7 +62,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`" @click.native="reload()">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`">
                     <img :src="item.daide">
                     <p>戴的</p>
                   </router-link>
@@ -121,9 +121,6 @@
       },
       outCategories() {
         this.showPopup = -1
-      },
-      reload() {
-        location.reload()
       }
     }
   }

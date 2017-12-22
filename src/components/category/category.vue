@@ -15,10 +15,10 @@
       }
     },
     created() {
-      this.category = []
-      this.item1 = this.$route.params.item1
-      this.item2 = this.$route.params.item2
-      this._getGoods()
+      this.__init()
+    },
+    watch: {
+      '$route.params': '__init'
     },
     computed: {
       title() {
@@ -26,6 +26,12 @@
       }
     },
     methods: {
+      __init() {
+        this.category = []
+        this.item1 = this.$route.params.item1
+        this.item2 = this.$route.params.item2
+        this._getGoods()
+      },
       _normalizeTitle() {
         let bread1 = ''
         let bread2 = ''
@@ -99,7 +105,6 @@
         }
         getGood(params).then((res) => {
           this.category = this.category.concat(res.data.results)
-          console.log(this.category)
           return this.category
         })
       }
