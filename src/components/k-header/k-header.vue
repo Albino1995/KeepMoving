@@ -40,13 +40,13 @@
             @mouseover="overCategories(index)"
             @mouseleave="outCategories"
         >
-          <router-link tag="a" class="select" :to="`/category/${item.link}/`">{{ item.name }}</router-link>
+          <span class="select">{{ item.name }}</span>
           <transition name="slide">
             <div class="pop-up-layer" v-show="showPopup === index">
             <ul>
               <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`" @click.native="reload()">
                     <img :src="item.caide">
                     <p>踩的</p>
                   </router-link>
@@ -54,7 +54,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`" @click.native="reload()">
                     <img :src="item.chuande">
                     <p>穿的</p>
                   </router-link>
@@ -62,7 +62,7 @@
               </li>
                <li>
                 <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`">
+                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`" @click.native="reload()">
                     <img :src="item.daide">
                     <p>戴的</p>
                   </router-link>
@@ -98,13 +98,6 @@
             daide: '/static/female_daide.jpg'
           },
           {
-            name: '儿童',
-            link: 'child',
-            caide: '/static/child_caide.jpg',
-            chuande: '/static/male_chuande.jpg',
-            daide: '/static/male_daide.jpg'
-          },
-          {
             name: '新品',
             link: 'new',
             caide: '/static/new.jpg',
@@ -128,6 +121,9 @@
       },
       outCategories() {
         this.showPopup = -1
+      },
+      reload() {
+        location.reload()
       }
     }
   }

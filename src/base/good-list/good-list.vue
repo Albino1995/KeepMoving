@@ -24,7 +24,7 @@
       },
       goods: {
         type: Array,
-        default: []
+        default: () => []
       }
     },
     computed: {

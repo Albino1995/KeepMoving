@@ -9,11 +9,35 @@ const Home = (resolve) => {
   })
 }
 
+const GoodDetail = (resolve) => {
+  import('components/good-detail/good-detail').then((module) => {
+    resolve(module)
+  })
+}
+
+const Category = (resolve) => {
+  import('components/category/category').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/index'
+    },
+    {
+      path: '/index',
       component: Home
+    },
+    {
+      path: '/good/:id',
+      component: GoodDetail
+    },
+    {
+      path: '/category/:item1/:item2',
+      component: Category
     }
   ]
 })

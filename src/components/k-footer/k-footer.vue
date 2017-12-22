@@ -5,7 +5,6 @@
       <div class="footer-list">
         <bottom-list :title="'男士'" :link="'male'"></bottom-list>
         <bottom-list :title="'女士'" :link="'female'"></bottom-list>
-        <bottom-list :title="'儿童'" :link="'child'"></bottom-list>
         <bottom-list :title="'新品'" :link="'new'"></bottom-list>
         <bottom-list :title="'大减价'" :link="'sale'"></bottom-list>
       </div>

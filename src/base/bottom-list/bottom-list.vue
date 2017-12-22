@@ -2,16 +2,16 @@
   <div>
     <ul>
       <li class="title footer-list-detail">
-        <router-link tag="a" :to="`/category/${link}/`">{{title}}</router-link>
+        <span>{{title}}</span>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`/category/${link}/sneakers/`">踩的</router-link>
+        <router-link tag="a" :to="`/category/${link}/sneakers/`" @click.native="reload()">踩的</router-link>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`/category/${link}/clothing/`">穿的</router-link>
+        <router-link tag="a" :to="`/category/${link}/clothing/`" @click.native="reload()">穿的</router-link>
       </li>
       <li class="footer-list-detail">
-        <router-link tag="a" :to="`/category/${link}/accessories/`">戴的</router-link>
+        <router-link tag="a" :to="`/category/${link}/accessories/`" @click.native="reload()">戴的</router-link>
       </li>
     </ul>
   </div>
@@ -27,6 +27,11 @@
       link: {
         type: String,
         default: ''
+      }
+    },
+    methods: {
+      reload() {
+        location.reload()
       }
     }
   }
@@ -53,7 +58,7 @@
         font-weight: 600
         letter-spacing: 3px
         padding-bottom: 15px
-        a
+        span
           &:hover
             transition: all 0.2s
             color: #d3d3d
