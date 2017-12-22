@@ -12,7 +12,7 @@
     data() {
       return {
         category: [],
-        title: ""
+        title: ''
       }
     },
     created() {
