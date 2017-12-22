@@ -11,7 +11,8 @@
   export default {
     data() {
       return {
-        category: []
+        category: [],
+        title: ""
       }
     },
     created() {
@@ -20,17 +21,13 @@
     watch: {
       '$route.params': '__init'
     },
-    computed: {
-      title() {
-        return this._normalizeTitle()
-      }
-    },
     methods: {
       __init() {
         this.category = []
         this.item1 = this.$route.params.item1
         this.item2 = this.$route.params.item2
         this._getGoods()
+        this._normalizeTitle()
       },
       _normalizeTitle() {
         let bread1 = ''
@@ -56,7 +53,7 @@
         if (this.item2 === 'accessories') {
           bread2 = '戴的'
         }
-        return bread1 + ' / ' + bread2
+        this.title = bread1 + ' / ' + bread2
       },
       _normalizeItem() {
         let params = {
