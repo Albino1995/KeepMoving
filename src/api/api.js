@@ -8,5 +8,10 @@ export const getBanner = () => {
 }
 // 获取商品
 export const getGood = params => {
-  return axios.get(`${host}/goods/`, {params: params})
+  if (params.gender2 === 'neutral') {
+    return axios.get(`${host}/goods/?is_new=${params.is_new}&is_sale=${params.is_sale}&is_hot=${params.is_hot}&gender=${params.gender1}&gender=${params.gender2}&category=${params.category}&ordering=${params.ordering}`)
+  }
+  if (params.gender1 === '' && params.gender2 === '') {
+    return axios.get(`${host}/goods/?is_new=${params.is_new}&is_sale=${params.is_sale}&is_hot=${params.is_hot}&category=${params.category}&ordering=${params.ordering}`)
+  }
 }

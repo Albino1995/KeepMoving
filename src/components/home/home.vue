@@ -41,12 +41,28 @@
         })
       },
       _getNewGoods() {
-        getGood({is_new: true}).then((res) => {
+        getGood({
+          is_new: true,
+          is_sale: '',
+          is_hot: '',
+          gender1: '',
+          gender2: '',
+          category: '',
+          ordering: ''
+        }).then((res) => {
           this.newGoods = res.data.results.slice(0, 4)
         })
       },
       _getHotGoods() {
-        getGood({is_hot: true}).then((res) => {
+        getGood({
+          is_new: '',
+          is_hot: true,
+          is_sale: '',
+          gender1: '',
+          gender2: '',
+          category: '',
+          ordering: ''
+        }).then((res) => {
           this.hotGoods = res.data.results.slice(0, 4)
         })
       }

@@ -1,5 +1,17 @@
 <template>
   <div>
+    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=price`">
+      <span>价格↑</span>
+    </router-link>
+    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
+      <span>价格↓</span>
+    </router-link>
+    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
+      <span>人气↑</span>
+    </router-link>
+    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
+      <span>人气↓</span>
+    </router-link>
     <good-list :title="title" :goods="category"></good-list>
   </div>
 </template>
@@ -12,7 +24,16 @@
     data() {
       return {
         category: [],
-        title: ''
+        title: '',
+        params: {
+          gender1: '',
+          gender2: '',
+          category: '',
+          is_sale: '',
+          is_new: '',
+          is_hot: '',
+          ordering: ''
+        }
       }
     },
     created() {
@@ -26,6 +47,15 @@
         this.category = []
         this.item1 = this.$route.params.item1
         this.item2 = this.$route.params.item2
+        this.params = {
+          gender1: '',
+          gender2: '',
+          category: '',
+          is_sale: '',
+          is_new: '',
+          is_hot: '',
+          ordering: ''
+        }
         this._getGoods()
         this._normalizeTitle()
       },
@@ -56,52 +86,36 @@
         this.title = bread1 + ' / ' + bread2
       },
       _normalizeItem() {
-        let params = {
-          gender: '',
-          category: '',
-          is_sale: '',
-          is_new: ''
-        }
         if (this.item1 === 'male' || this.item1 === 'female') {
-          params.gender = this.item1
+          this.params.gender1 = this.item1
+          this.params.gender2 = 'neutral'
         }
         if (this.item1 === 'new') {
-          params.is_new = true
+          this.params.is_new = true
         }
         if (this.item1 === 'sale') {
-          params.is_sale = true
+          this.params.is_sale = true
         }
         if (this.item2 === 'sneakers') {
-          params.category = '踩的'
+          this.params.category = '踩的'
         }
         if (this.item2 === 'clothing') {
-          params.category = '穿的'
+          this.params.category = '穿的'
         }
         if (this.item2 === 'accessories') {
-          params.category = '戴的'
+          this.params.category = '戴的'
         }
-        return params
+        // 排序
+        let href = window.location.href
+        let val = href.match(/ordering=(.*)/)
+        if (val) {
+          this.params.ordering = val[1]
+        }
+        return this.params
       },
       _getGoods() {
         getGood(this._normalizeItem()).then((res) => {
           this.category = res.data.results
-          if (!this._normalizeItem().gender) {
-            return this.category
-          }
-          if (this._normalizeItem().gender !== '') {
-            this._pushNeutral()
-          }
-        })
-      },
-      _pushNeutral() {
-        let params = {
-          gender: 'neutral',
-          category: this._normalizeItem().category,
-          is_sale: '',
-          is_new: ''
-        }
-        getGood(params).then((res) => {
-          this.category = this.category.concat(res.data.results)
           return this.category
         })
       }
