@@ -5,7 +5,7 @@
       <li v-for="item in goods">
         <div class="item">
           <router-link tag="a" class="item-link" :to="`/good/${item.goods_sn}`">
-            <img v-lazy="item.goods_front_image">
+            <img v-lazy="item.goods_front_image" width="160" height="160">
             <p>{{item.name}}</p>
             <p class="item-bottom">￥{{item.price}}</p>
           </router-link>

@@ -25,9 +25,7 @@
       </rd-drop-button>
     </div>
     <good-list :title="title" :goods="category"></good-list>
-    <div class="loading-container" v-show="!category.length">
-      <loading></loading>
-    </div>
+    <loading v-show="showMore && total > 12"></loading>
   </div>
 </template>
 
@@ -50,12 +48,19 @@
           is_sale: '',
           is_new: '',
           is_hot: '',
-          ordering: ''
-        }
+          ordering: '',
+          page: '1'
+        },
+        showMore: true,
+        flag: true,
+        total: 0
       }
     },
     created() {
       this.__init()
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll)
     },
     watch: {
       '$route.params': '__init'
@@ -72,8 +77,12 @@
           is_sale: '',
           is_new: '',
           is_hot: '',
-          ordering: ''
+          ordering: '',
+          page: '1'
         }
+        this.showMore = true
+        this.flag = true
+        this.total = 0
         this._getGoods()
         this._normalizeTitle()
       },
@@ -133,8 +142,33 @@
       },
       _getGoods() {
         getGood(this._normalizeItem()).then((res) => {
+          this.total = res.data.count
           this.category = res.data.results
-          return this.category
+        })
+      },
+      handleScroll() {
+        if (!this.flag) {
+          return
+        }
+        const footerHeight = 1000
+        const pageSize = 12
+        // 滚动到底部
+        if (document.body.scrollHeight - window.scrollY < footerHeight) {
+          this.flag = false
+          if (!this.showMore || this.total <= pageSize || !this.total) {
+            return
+          }
+          this.params.page ++
+          this.getMore()
+        }
+      },
+      getMore() {
+        getGood(this._normalizeItem()).then((res) => {
+          if (!res.data.next) {
+            this.showMore = false
+          }
+          this.category = this.category.concat(res.data.results)
+          this.flag = true
         })
       }
     },
@@ -150,15 +184,9 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .button-wrapper
     position: absolute
-    right: 100px
+    right: 30px
     top: 240px
     z-index: 50
     span
       letter-spacing: 1px
-  .loading-container
-    position: absolute
-    width: 100%
-    top: 70%
-    z-index: 50
-    transform: translateY(-50%)
 </style>
