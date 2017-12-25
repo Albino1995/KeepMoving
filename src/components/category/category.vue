@@ -83,8 +83,10 @@
         this.showMore = true
         this.flag = true
         this.total = 0
-        this._getGoods()
-        this._normalizeTitle()
+        if (this.item1 && this.item2) {
+          this._getGoods()
+          this._normalizeTitle()
+        }
       },
       _normalizeTitle() {
         let bread1 = ''

@@ -48,7 +48,8 @@
           gender1: '',
           gender2: '',
           category: '',
-          ordering: ''
+          ordering: '',
+          page: 1
         }).then((res) => {
           this.newGoods = res.data.results.slice(0, 4)
         })
@@ -61,7 +62,8 @@
           gender1: '',
           gender2: '',
           category: '',
-          ordering: ''
+          ordering: '',
+          page: 1
         }).then((res) => {
           this.hotGoods = res.data.results.slice(0, 4)
         })
