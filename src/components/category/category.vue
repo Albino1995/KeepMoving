@@ -1,24 +1,42 @@
 <template>
   <div>
-    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=price`">
-      <span>价格↑</span>
-    </router-link>
-    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
-      <span>价格↓</span>
-    </router-link>
-    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
-      <span>人气↑</span>
-    </router-link>
-    <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
-      <span>人气↓</span>
-    </router-link>
+    <div class="button-wrapper">
+      <rd-drop-button text="筛选">
+        <rd-button>
+          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=price`">
+            <span>价格 ↑</span>
+          </router-link>
+        </rd-button>
+        <rd-button>
+          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
+            <span>价格 ↓</span>
+          </router-link>
+        </rd-button>
+        <rd-button>
+          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
+            <span>销量 ↑</span>
+          </router-link>
+        </rd-button>
+        <rd-button>
+          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
+            <span>销量 ↓</span>
+          </router-link>
+        </rd-button>
+      </rd-drop-button>
+    </div>
     <good-list :title="title" :goods="category"></good-list>
+    <div class="loading-container" v-show="!category.length">
+      <loading></loading>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import {getGood} from 'api/api'
   import GoodList from 'base/good-list/good-list'
+  import Loading from 'base/loading/loading'
+  import {rdDropButton, rdButton} from 'radon-ui'
+  import 'radon-ui/dist/radon-ui.css'
 
   export default {
     data() {
@@ -121,9 +139,26 @@
       }
     },
     components: {
-      GoodList
+      GoodList,
+      Loading,
+      rdDropButton,
+      rdButton
     }
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  .button-wrapper
+    position: absolute
+    right: 100px
+    top: 240px
+    z-index: 50
+    span
+      letter-spacing: 1px
+  .loading-container
+    position: absolute
+    width: 100%
+    top: 70%
+    z-index: 50
+    transform: translateY(-50%)
+</style>
