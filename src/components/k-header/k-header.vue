@@ -206,7 +206,6 @@
 
       .search-wrapper
         position: absolute
-        display: inline
         right: 30px
   .slide-enter-active, .slide-leave-active
     transition: all 0.4s
