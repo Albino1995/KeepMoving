@@ -36,6 +36,9 @@
   import {rdDropButton, rdButton} from 'radon-ui'
   import 'radon-ui/dist/radon-ui.css'
 
+  const footerHeight = 1000
+  const pageSize = 12
+
   export default {
     data() {
       return {
@@ -51,7 +54,8 @@
           ordering: '',
           page: '1'
         },
-        showMore: true,
+        getGoodFlag: false,
+        getMoreFlag: true,
         flag: true,
         total: 0
       }
@@ -81,7 +85,8 @@
           page: '1'
         }
         this.showMore = true
-        this.flag = true
+        this.getGoodFlag = false
+        this.getMoreFlag = true
         this.total = 0
         if (this.item1 && this.item2) {
           this._getGoods()
@@ -144,20 +149,23 @@
       },
       _getGoods() {
         getGood(this._normalizeItem()).then((res) => {
-          this.total = res.data.count
           this.category = res.data.results
+          this.total = res.data.count
+          if (this.total < pageSize) {
+            this.showMore = false
+          }
+          this.getGoodFlag = true
         })
       },
       handleScroll() {
-        if (!this.flag) {
+        // 没获取到total或者获取更多商品没完成直接返回
+        if (!this.getGoodFlag || !this.getMoreFlag) {
           return
         }
-        const footerHeight = 1000
-        const pageSize = 12
         // 滚动到底部
         if (document.body.scrollHeight - window.scrollY < footerHeight) {
-          this.flag = false
-          if (!this.showMore || this.total <= pageSize || !this.total) {
+          this.getMoreFlag = false
+          if (this.total <= pageSize || this.showMore === false) {
             return
           }
           this.params.page ++
@@ -170,7 +178,7 @@
             this.showMore = false
           }
           this.category = this.category.concat(res.data.results)
-          this.flag = true
+          this.getMoreFlag = true
         })
       }
     },
