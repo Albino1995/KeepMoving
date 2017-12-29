@@ -1,6 +1,6 @@
 <template>
   <div class="good-list">
-    <span>{{title}}</span>
+    <span class="normal-span" id="span">{{title}}</span>
     <ul>
       <li v-for="item in goods">
         <div class="item">
@@ -25,6 +25,22 @@
       goods: {
         type: Array,
         default: () => []
+      },
+      adjust: {
+        type: Boolean,
+        default: false
+      }
+    },
+    mounted() {
+      this._adjustSpan()
+    },
+    methods: {
+      _adjustSpan() {
+        if (!this.adjust) {
+          return
+        }
+        document.getElementById('span').removeAttribute('class')
+        document.getElementById('span').setAttribute('class', 'adjust-span')
       }
     }
   }
@@ -33,7 +49,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .good-list
     text-align: center
-    span
+    .normal-span
       display: block
       font-size: 30px
       font-weight:  lighter
@@ -51,6 +67,25 @@
         left: 25%
       &:after
         right: 25%
+
+    .adjust-span
+      display: block
+      font-size: 30px
+      font-weight:  lighter
+      padding-top: 30px
+      letter-spacing: 2px
+      position: relative
+      &:before, &:after
+        content: ''
+        position: absolute
+        top: 70%
+        background: #a9a9a9
+        width: 15%
+        height: 1px
+      &:before
+        left: 20%
+      &:after
+        right: 20%
     ul
       padding-top: 10px
       li
