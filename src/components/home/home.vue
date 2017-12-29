@@ -11,13 +11,16 @@
       </slider>
     </div>
     <good-list :title="isNew" :goods="newGoods"></good-list>
+    <loading v-show="!newGoods.length"></loading>
     <good-list :title="isHot" :goods="hotGoods"></good-list>
+    <loading v-show="!hotGoods.length"></loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Slider from 'base/slider/slider'
   import GoodList from 'base/good-list/good-list'
+  import Loading from 'base/loading/loading'
   import {getBanner, getGood} from 'api/api'
   export default {
     data() {
@@ -71,7 +74,8 @@
     },
     components: {
       Slider,
-      GoodList
+      GoodList,
+      Loading
     }
   }
 </script>

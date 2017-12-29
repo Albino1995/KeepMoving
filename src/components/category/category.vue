@@ -25,7 +25,7 @@
       </rd-drop-button>
     </div>
     <good-list :title="title" :goods="category"></good-list>
-    <loading v-show="showMore"> 12"></loading>
+    <loading v-show="showMore"></loading>
   </div>
 </template>
 
