@@ -24,8 +24,8 @@
         </rd-button>
       </rd-drop-button>
     </div>
-    <good-list :title="title" :goods="category" :adjust=true></good-list>
-    <loading v-show="showMore"></loading>
+    <good-list :title="title" :goods="category" :adjust=true v-if="params.search !== ''"></good-list>
+    <loading v-show="showMore && params.search !== ''"></loading>
   </div>
 </template>
 
@@ -73,6 +73,7 @@
         this.getMoreFlag = true
         this.total = 0
         if (this.$route.params.keyword.match(/^\s+$/)) {
+          this.params.search = ''
           return
         }
         if (this.params.search) {
