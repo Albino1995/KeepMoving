@@ -24,7 +24,7 @@
         </rd-button>
       </rd-drop-button>
     </div>
-    <good-list :title="title" :goods="category"></good-list>
+    <good-list :title="title" :goods="category" :adjust=true></good-list>
     <loading v-show="showMore"></loading>
   </div>
 </template>
@@ -61,16 +61,16 @@
       }
     },
     created() {
-      this.__init()
+      this._initCategory()
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll)
     },
     watch: {
-      '$route.params': '__init'
+      '$route.params': '_initCategory'
     },
     methods: {
-      __init() {
+      _initCategory() {
         this.category = []
         this.item1 = this.$route.params.item1
         this.item2 = this.$route.params.item2
@@ -90,7 +90,6 @@
         this.total = 0
         if (this.item1 && this.item2) {
           this._getGoods()
-          this._normalizeTitle()
         }
       },
       _normalizeTitle() {
@@ -117,7 +116,7 @@
         if (this.item2 === 'accessories') {
           bread2 = '戴的'
         }
-        this.title = bread1 + ' / ' + bread2
+        this.title = bread1 + ' / ' + bread2 + ' / ' + this.total + '件商品'
       },
       _normalizeItem() {
         if (this.item1 === 'male' || this.item1 === 'female') {
@@ -151,6 +150,7 @@
         getGood(this._normalizeItem()).then((res) => {
           this.category = res.data.results
           this.total = res.data.count
+          this._normalizeTitle()
           if (this.total < pageSize) {
             this.showMore = false
           }
