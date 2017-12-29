@@ -73,12 +73,14 @@
           </transition>
         </li>
       </ul>
-      <div class="search-wrapper">搜索框</div>
+      <search-box></search-box>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import SearchBox from 'base/search-box/search-box'
+
   export default {
     data() {
       return {
@@ -122,6 +124,9 @@
       outCategories() {
         this.showPopup = -1
       }
+    },
+    components: {
+      SearchBox
     }
   }
 </script>
@@ -204,9 +209,6 @@
                     &:hover
                       text-decoration: underline
 
-      .search-wrapper
-        position: absolute
-        right: 30px
   .slide-enter-active, .slide-leave-active
     transition: all 0.4s
   .slide-enter, .slide-leave-to
