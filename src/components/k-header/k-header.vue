@@ -43,33 +43,33 @@
           <span class="select">{{ item.name }}</span>
           <transition name="slide">
             <div class="pop-up-layer" v-show="showPopup === index">
-            <ul>
-              <li>
-                <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`">
-                    <img :src="item.caide">
-                    <p>踩的</p>
-                  </router-link>
-                </div>
-              </li>
-               <li>
-                <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`">
-                    <img :src="item.chuande">
-                    <p>穿的</p>
-                  </router-link>
-                </div>
-              </li>
-               <li>
-                <div class="pop">
-                  <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`">
-                    <img :src="item.daide">
-                    <p>戴的</p>
-                  </router-link>
-                </div>
-              </li>
-            </ul>
-          </div>
+              <ul>
+                <li>
+                  <div class="pop">
+                    <router-link tag="a" class="item" :to="`/category/${item.link}/sneakers`">
+                      <img :src="item.caide">
+                      <p>踩的</p>
+                    </router-link>
+                  </div>
+                </li>
+                <li>
+                  <div class="pop">
+                    <router-link tag="a" class="item" :to="`/category/${item.link}/clothing`">
+                      <img :src="item.chuande">
+                      <p>穿的</p>
+                    </router-link>
+                  </div>
+                </li>
+                <li>
+                  <div class="pop">
+                    <router-link tag="a" class="item" :to="`/category/${item.link}/accessories`">
+                      <img :src="item.daide">
+                      <p>戴的</p>
+                    </router-link>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </transition>
         </li>
       </ul>
@@ -134,6 +134,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   a
     color: #000000
+
   .header-wrapper
     position: relative
     padding: 15px 0 30px 0
@@ -197,7 +198,7 @@
             text-align: center
             width: 100%
             background-color: #ffffff
-            margin-top: 6px
+            /*margin-top: 6px*/
             z-index: 50
             ul
               li
@@ -211,6 +212,7 @@
 
   .slide-enter-active, .slide-leave-active
     transition: all 0.4s
+
   .slide-enter, .slide-leave-to
     opacity: 0
 </style>
