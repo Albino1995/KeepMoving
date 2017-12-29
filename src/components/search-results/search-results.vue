@@ -30,7 +30,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getGood} from 'api/api'
+  import {getSearchResults} from 'api/api'
   import GoodList from 'base/good-list/good-list'
   import Loading from 'base/loading/loading'
   import {rdDropButton, rdButton} from 'radon-ui'
@@ -45,13 +45,7 @@
         category: [],
         title: '',
         params: {
-          gender1: '',
-          gender2: '',
-          category: '',
-          is_sale: '',
-          is_new: '',
-          is_hot: '',
-          ordering: '',
+          search: '',
           page: '1'
         },
         getGoodFlag: false,
@@ -67,56 +61,26 @@
       window.addEventListener('scroll', this.handleScroll)
     },
     watch: {
-      '$route.params': '_initCategory'
+      '$route.params.keyword': '_initCategory'
     },
     methods: {
       _initCategory() {
         this.category = []
-        this.item1 = this.$route.params.item1
-        this.item2 = this.$route.params.item2
-        this.params = {
-          gender1: '',
-          gender2: '',
-          category: '',
-          is_sale: '',
-          is_new: '',
-          is_hot: '',
-          ordering: '',
-          page: '1'
-        }
+        this.params.search = this.$route.params.keyword
+        this.params.page = 1
         this.showMore = true
         this.getGoodFlag = false
         this.getMoreFlag = true
         this.total = 0
-        if (this.item1 && this.item2) {
+        if (this.$route.params.keyword.match(/^\s+$/)) {
+          return
+        }
+        if (this.params.search) {
           this._getGoods()
         }
       },
       _normalizeTitle() {
-        let bread1 = ''
-        let bread2 = ''
-        if (this.item1 === 'male') {
-          bread1 = '男士'
-        }
-        if (this.item1 === 'female') {
-          bread1 = '女士'
-        }
-        if (this.item1 === 'new') {
-          bread1 = '新品'
-        }
-        if (this.item1 === 'sale') {
-          bread1 = '大减价'
-        }
-        if (this.item2 === 'sneakers') {
-          bread2 = '踩的'
-        }
-        if (this.item2 === 'clothing') {
-          bread2 = '穿的'
-        }
-        if (this.item2 === 'accessories') {
-          bread2 = '戴的'
-        }
-        this.title = bread1 + ' / ' + bread2 + ' / ' + this.total + '件商品'
+        this.title = '搜索结果 / ' + this.total + '件商品'
       },
       _normalizeItem() {
         if (this.item1 === 'male' || this.item1 === 'female') {
@@ -147,7 +111,7 @@
         return this.params
       },
       _getGoods() {
-        getGood(this._normalizeItem()).then((res) => {
+        getSearchResults(this._normalizeItem()).then((res) => {
           this.category = res.data.results
           this.total = res.data.count
           this._normalizeTitle()
@@ -168,12 +132,12 @@
           if (this.total <= pageSize || this.showMore === false) {
             return
           }
-          this.params.page ++
+          this.params.page++
           this.getMore()
         }
       },
       getMore() {
-        getGood(this._normalizeItem()).then((res) => {
+        getSearchResults(this._normalizeItem()).then((res) => {
           if (!res.data.next) {
             this.showMore = false
           }

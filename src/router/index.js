@@ -21,6 +21,12 @@ const Category = (resolve) => {
   })
 }
 
+const SearchResults = (resolve) => {
+  import('components/search-results/search-results').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -38,6 +44,14 @@ export default new Router({
     {
       path: '/category/:item1/:item2',
       component: Category
+    },
+    {
+      path: '/category/:item1/:item2',
+      component: Category
+    },
+    {
+      path: '/search-results/keyword=:keyword',
+      component: SearchResults
     }
   ]
 })
