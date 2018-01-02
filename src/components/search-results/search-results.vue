@@ -30,7 +30,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getSearchResults} from 'api/api'
+  import {getGood} from 'api/api'
   import GoodList from 'base/good-list/good-list'
   import Loading from 'base/loading/loading'
   import {rdDropButton, rdButton} from 'radon-ui'
@@ -112,7 +112,7 @@
         return this.params
       },
       _getGoods() {
-        getSearchResults(this._normalizeItem()).then((res) => {
+        getGood(this._normalizeItem()).then((res) => {
           this.category = res.data.results
           this.total = res.data.count
           this._normalizeTitle()
@@ -138,7 +138,7 @@
         }
       },
       getMore() {
-        getSearchResults(this._normalizeItem()).then((res) => {
+        getGood(this._normalizeItem()).then((res) => {
           if (!res.data.next) {
             this.showMore = false
           }

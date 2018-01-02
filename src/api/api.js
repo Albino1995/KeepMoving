@@ -11,11 +11,5 @@ export const getGood = params => {
   if (params.gender2 === 'neutral') {
     return axios.get(`${host}/goods/?is_new=${params.is_new}&is_sale=${params.is_sale}&is_hot=${params.is_hot}&gender=${params.gender1}&gender=${params.gender2}&category=${params.category}&ordering=${params.ordering}&page=${params.page}`)
   }
-  if (params.gender1 === '' && params.gender2 === '') {
-    return axios.get(`${host}/goods/`, {params: params})
-  }
-}
-// 获取搜索结果
-export const getSearchResults = params => {
   return axios.get(`${host}/goods/`, {params: params})
 }
