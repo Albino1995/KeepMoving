@@ -50,7 +50,7 @@ export default new Router({
       component: Category
     },
     {
-      path: '/search-results/keyword=:keyword',
+      path: '/search-results/:keyword',
       component: SearchResults
     }
   ]

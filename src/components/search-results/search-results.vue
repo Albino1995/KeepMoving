@@ -3,22 +3,22 @@
     <div class="button-wrapper">
       <rd-drop-button text="筛选" v-show="total !== 0">
         <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=price`">
+          <router-link :to="`/search-results/${$route.params.keyword}?ordering=price`">
             <span>价格 ↑</span>
           </router-link>
         </rd-button>
         <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
+          <router-link :to="`/search-results/${$route.params.keyword}?ordering=-price`">
             <span>价格 ↓</span>
           </router-link>
         </rd-button>
         <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
+          <router-link :to="`/search-results/${$route.params.keyword}?ordering=sold_num`">
             <span>销量 ↑</span>
           </router-link>
         </rd-button>
         <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
+          <router-link :to="`/search-results/${$route.params.keyword}?ordering=-sold_num`">
             <span>销量 ↓</span>
           </router-link>
         </rd-button>
@@ -61,7 +61,7 @@
       window.addEventListener('scroll', this.handleScroll)
     },
     watch: {
-      '$route.params.keyword': '_initCategory'
+      '$route.params': '_initCategory'
     },
     methods: {
       _initCategory() {
@@ -72,7 +72,7 @@
         this.getGoodFlag = false
         this.getMoreFlag = true
         this.total = 0
-        if (this.$route.params.keyword.match(/^\s+$/)) {
+        if (!this.params.search || this.params.search.match(/^\s+$/)) {
           this.params.search = ''
           return
         }

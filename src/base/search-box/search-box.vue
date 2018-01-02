@@ -1,7 +1,7 @@
 <template>
   <div class="search-wrapper">
     <input :placeholder="placeholder" v-model=keyword />
-    <router-link v-if="keyword" :to="`/search-results/keyword=${keyword}`" tag="img" class="search" src='../../../static/search.png' width="14" height="14">
+    <router-link v-if="keyword" :to="`/search-results/${keyword}`" tag="img" class="search" src='../../../static/search.png' width="14" height="14">
     </router-link>
   </div>
 </template>
