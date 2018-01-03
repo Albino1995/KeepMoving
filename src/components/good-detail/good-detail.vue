@@ -46,12 +46,18 @@
     activated() {
       this._getGoodDetail()
     },
+    watch: {
+      '$route.params.id': '_getGoodDetail'
+    },
     methods: {
       onSelectImage(data) {
         this.img = data.src
       },
       _getGoodDetail() {
         this.params.search = this.$route.params.id
+        if (!this.params.search) {
+          return
+        }
         getGood(this.params).then((res) => {
           this.good = res.data.results[0]
           this._getGender()
