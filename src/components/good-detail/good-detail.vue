@@ -60,6 +60,9 @@
       },
       _getImageData() {
         this.img = this.good.cs[0].img[0].image
+        if (this.dataImages.length) {
+          this.dataImages.splice(0, this.dataImages.length)
+        }
         for (let i = 0; i < this.good.cs[0].img.length; i++) {
           this.dataImages.push({
             id: i + 1,
@@ -117,11 +120,8 @@
           margin-left: 35px
       .product-img-preview
         position absolute
-        top 150px
+        top 100px
         left: 50px
         div
-          height 100px
           width 100px
-          display inline-block
-
 </style>
