@@ -10,7 +10,15 @@
         </div>
       </div>
       <div class="product-img">
-        <img :src=img width="450" height="450" />
+        <a :href=img>
+          <img :src=img width="450" height="450"/>
+        </a>
+      </div>
+      <div class="product-img-preview">
+        <vue-select-image :dataImages="dataImages"
+                          @onSelectImage="onSelectImage"
+        >
+        </vue-select-image>
       </div>
       <div class="product-description">
         <p v-html="good.goods_desc"></p>
@@ -20,6 +28,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import VueSelectImage from 'vue-select-image'
   import {getGood} from 'api/api'
 
   export default {
@@ -30,20 +39,33 @@
         },
         good: {},
         gender: '',
-        img: ''
+        img: '',
+        dataImages: []
       }
     },
     activated() {
       this._getGoodDetail()
     },
     methods: {
+      onSelectImage(data) {
+        this.img = data.src
+      },
       _getGoodDetail() {
         this.params.search = this.$route.params.id
         getGood(this.params).then((res) => {
           this.good = res.data.results[0]
           this._getGender()
-          this.img = this.good.cs[0].img[0].image
+          this._getImageData()
         })
+      },
+      _getImageData() {
+        this.img = this.good.cs[0].img[0].image
+        for (let i = 0; i < this.good.cs[0].img.length; i++) {
+          this.dataImages.push({
+            id: i + 1,
+            src: this.good.cs[0].img[i].image
+          })
+        }
       },
       _getGender() {
         if (this.good.gender === 'neutral') {
@@ -56,6 +78,9 @@
           this.gender = '女款'
         }
       }
+    },
+    components: {
+      VueSelectImage
     }
   }
 </script>
@@ -90,4 +115,13 @@
         font-size: 13px
         p
           margin-left: 35px
+      .product-img-preview
+        position absolute
+        top 150px
+        left: 50px
+        div
+          height 100px
+          width 100px
+          display inline-block
+
 </style>
