@@ -10,7 +10,12 @@
         </div>
       </div>
       <div class="product-img" v-viewer="options" v-show="$route.params.id">
-          <img :src=img width="450" height="450"/>
+        <div class="like-button">
+          <vue-star animate="animated bounceIn" color="#F05654">
+            <i slot="icon" class="fa fa-heart" ref="icon"></i>
+          </vue-star>
+        </div>
+        <img :src=img width="450" height="450"/>
       </div>
       <div class="product-img-preview">
         <vue-select-image :dataImages="dataImages"
@@ -27,6 +32,7 @@
 
 <script type="text/ecmascript-6">
   import VueSelectImage from 'vue-select-image'
+  import VueStar from 'vue-star'
   import {getGood} from 'api/api'
 
   export default {
@@ -40,7 +46,6 @@
         img: '',
         dataImages: [],
         options: {
-          'navbar': false,
           'toolbar': false,
           'title': false
         }
@@ -50,6 +55,7 @@
       this._getGoodDetail()
     },
     watch: {
+      // 切换至不同id的详情页重新初始化
       '$route.params.id': '_getGoodDetail'
     },
     methods: {
@@ -69,6 +75,7 @@
       },
       _getImageData() {
         this.img = this.good.cs[0].img[0].image
+        // 清空图片数据
         if (this.dataImages.length) {
           this.dataImages.splice(0, this.dataImages.length)
         }
@@ -92,7 +99,8 @@
       }
     },
     components: {
-      VueSelectImage
+      VueSelectImage,
+      VueStar
     }
   }
 </script>
@@ -103,9 +111,9 @@
     width: 1000px
     margin: 0 auto
     .product-wrapper
+      position: inherit
       width: 520px
-      margin-left: 240px
-      margin-right: 40px
+      margin: 20px 40px 0 240px
       .name-wrapper
         width: 100%
         text-align: center
@@ -117,13 +125,21 @@
         .product-price
           font-weight: bold
       .product-img
+        margin-top: 20px
         width: 520px
         height: 505px
         cursor: zoom-in
+        .like-button
+          color: #d3d3d3
+          position: absolute
+          width: 100px
+          height: 100px
+          left: 420px
+          cursor: pointer
         img
           margin: 50px 35px 0
       .product-description
-        margin-top: 20px
+        margin-top: 30px
         color: #000000
         font-size: 13px
         p
@@ -131,7 +147,9 @@
       .product-img-preview
         position absolute
         top 100px
-        left: 50px
+        left: -120px
         div
           width 100px
+  .fa
+    font-size: 1.5em
 </style>

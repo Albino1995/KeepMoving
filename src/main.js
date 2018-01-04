@@ -5,6 +5,7 @@ import VueLazyLoad from 'vue-lazyload'
 import Viewer from 'v-viewer'
 import Element from 'element-ui'
 
+import 'font-awesome/css/font-awesome.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/stylus/index.styl'
 
