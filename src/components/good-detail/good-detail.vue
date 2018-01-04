@@ -9,10 +9,8 @@
           价格 <span>￥{{good.price}}</span>
         </div>
       </div>
-      <div class="product-img">
-        <a :href=img>
+      <div class="product-img" v-viewer="options">
           <img :src=img width="450" height="450"/>
-        </a>
       </div>
       <div class="product-img-preview">
         <vue-select-image :dataImages="dataImages"
@@ -40,7 +38,12 @@
         good: {},
         gender: '',
         img: '',
-        dataImages: []
+        dataImages: [],
+        options: {
+          'navbar': false,
+          'toolbar': false,
+          'title': false
+        }
       }
     },
     activated() {
@@ -116,6 +119,7 @@
       .product-img
         width: 520px
         height: 505px
+        cursor: zoom-in
         img
           margin: 50px 35px 0
       .product-description
