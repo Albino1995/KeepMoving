@@ -9,7 +9,7 @@
           价格 <span>￥{{good.price}}</span>
         </div>
       </div>
-      <div class="product-img" v-viewer="options">
+      <div class="product-img" v-viewer="options" v-show="$route.params.id">
           <img :src=img width="450" height="450"/>
       </div>
       <div class="product-img-preview">
