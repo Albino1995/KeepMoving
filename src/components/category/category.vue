@@ -1,28 +1,33 @@
 <template>
   <div>
     <div class="button-wrapper">
-      <rd-drop-button text="筛选" v-show="total !== 0">
-        <rd-button>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          筛选<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
           <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=price`">
             <span>价格 ↑</span>
           </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
-            <span>价格 ↓</span>
-          </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
-            <span>销量 ↑</span>
-          </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
-            <span>销量 ↓</span>
-          </router-link>
-        </rd-button>
-      </rd-drop-button>
+        </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-price`">
+              <span>价格 ↓</span>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=sold_num`">
+              <span>销量 ↑</span>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/category/${$route.params.item1}/${$route.params.item2}?ordering=-sold_num`">
+              <span>销量 ↓</span>
+            </router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <good-list :title="title" :goods="category" :adjust=true></good-list>
     <loading v-show="showMore"></loading>
@@ -168,7 +173,7 @@
           if (this.total <= pageSize || this.showMore === false) {
             return
           }
-          this.params.page ++
+          this.params.page++
           this.getMore()
         }
       },
@@ -194,7 +199,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .button-wrapper
     position: absolute
-    right: 30px
+    right: 40px
     top: 240px
     z-index: 50
     span

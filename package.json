@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "better-scroll": "^0.1.15",
-    "radon-ui": "^0.5.3",
+    "element-ui": "^2.0.10",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "v-viewer": "^0.3.0",

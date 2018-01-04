@@ -1,28 +1,33 @@
 <template>
   <div>
     <div class="button-wrapper">
-      <rd-drop-button text="筛选" v-show="total !== 0">
-        <rd-button>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          筛选<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
           <router-link :to="`/search-results/${$route.params.keyword}?ordering=price`">
             <span>价格 ↑</span>
           </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/search-results/${$route.params.keyword}?ordering=-price`">
-            <span>价格 ↓</span>
-          </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/search-results/${$route.params.keyword}?ordering=sold_num`">
-            <span>销量 ↑</span>
-          </router-link>
-        </rd-button>
-        <rd-button>
-          <router-link :to="`/search-results/${$route.params.keyword}?ordering=-sold_num`">
-            <span>销量 ↓</span>
-          </router-link>
-        </rd-button>
-      </rd-drop-button>
+        </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/search-results/${$route.params.keyword}?ordering=-price`">
+              <span>价格 ↓</span>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/search-results/${$route.params.keyword}?ordering=sold_num`">
+              <span>销量 ↑</span>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <router-link :to="`/search-results/${$route.params.keyword}?ordering=-sold_num`">
+              <span>销量 ↓</span>
+            </router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <good-list :title="title" :goods="category" :adjust=true v-if="params.search !== ''"></good-list>
     <loading v-show="showMore && params.search !== ''"></loading>
@@ -33,8 +38,6 @@
   import {getGood} from 'api/api'
   import GoodList from 'base/good-list/good-list'
   import Loading from 'base/loading/loading'
-  import {rdDropButton, rdButton} from 'radon-ui'
-  import 'radon-ui/dist/radon-ui.css'
 
   const footerHeight = 1000
   const pageSize = 12
@@ -149,9 +152,7 @@
     },
     components: {
       GoodList,
-      Loading,
-      rdDropButton,
-      rdButton
+      Loading
     }
   }
 </script>
@@ -159,7 +160,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .button-wrapper
     position: absolute
-    right: 30px
+    right: 40px
     top: 240px
     z-index: 50
     span
