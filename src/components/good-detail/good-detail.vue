@@ -1,64 +1,69 @@
 <template>
-  <div class="content">
-    <loading title="拼命加载中..." v-show="!showFlag"></loading>
-    <div class="product-img-preview" v-show="showFlag">
-      <vue-select-image :dataImages="dataImages"
-                        @onSelectImage="onSelectImage"
-      >
-      </vue-select-image>
-    </div>
-    <div class="product-wrapper" v-show="showFlag">
-      <div class="name-wrapper">
-        <div class="product-name">
-          【{{gender}}】<span>{{good.name}}</span>
+  <div>
+    <div class="content">
+      <loading title="拼命加载中..." v-show="!showFlag"></loading>
+      <div class="product-img-preview" v-show="showFlag">
+        <vue-select-image :dataImages="dataImages"
+                          @onSelectImage="onSelectImage"
+        >
+        </vue-select-image>
+      </div>
+      <div class="product-wrapper" v-show="showFlag">
+        <div class="name-wrapper">
+          <div class="product-name">
+            【{{gender}}】<span>{{good.name}}</span>
+          </div>
+          <div class="product-price">
+            价格 <span>￥{{good.price}}</span>
+          </div>
         </div>
-        <div class="product-price">
-          价格 <span>￥{{good.price}}</span>
+        <div class="product-img" v-viewer="options" v-show="$route.params.id">
+          <div class="like-button">
+            <vue-star color="#F05654">
+              <i slot="icon" class="fa fa-heart" ref="icon" @click="addFavourites"></i>
+            </vue-star>
+          </div>
+          <img :src=img width="450" height="450"/>
+        </div>
+        <div class="product-description">
+          <p v-html="good.goods_desc"></p>
         </div>
       </div>
-      <div class="product-img" v-viewer="options" v-show="$route.params.id">
-        <div class="like-button">
-          <vue-star animate="animated bounceIn" color="#F05654">
-            <i slot="icon" class="fa fa-heart" ref="icon" @click="addFavourites"></i>
-          </vue-star>
+      <div class="size-buy-wrapper" v-show="showFlag">
+        <span>型号: {{params.search}}</span>
+        <span>选择款式</span>
+        <div class="color-selection">
+          <el-radio-group v-model="colorItem" @change="selectColorItem">
+            <el-radio v-for="item in color" :key="item" :label=item>{{ item }}</el-radio>
+          </el-radio-group>
         </div>
-        <img :src=img width="450" height="450"/>
-      </div>
-      <div class="product-description">
-        <p v-html="good.goods_desc"></p>
+        <span>选择尺码</span>
+        <div class="size-selection">
+          <el-select v-model="sizeItem" placeholder="请选择" @change="selectSizeItem">
+            <el-option
+              v-for="item in size"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <span class="alert" v-show="alertFlag">{{ alertText }}</span>
+        <button class="shopping-cart" @click="addShoppingCart">
+          <i class="fa fa-shopping-cart"></i>
+          &nbsp;添加到购物车
+        </button>
       </div>
     </div>
-    <div class="size-buy-wrapper" v-show="showFlag">
-      <span>型号: {{params.search}}</span>
-      <span>选择款式</span>
-      <div class="color-selection">
-        <el-radio-group v-model="radio2" @change="selectColorItem">
-          <el-radio v-for="item in color" :key="item" :label=item>{{ item }}</el-radio>
-        </el-radio-group>
-      </div>
-      <span>选择尺码</span>
-      <div class="size-selection">
-        <el-select v-model="value2" placeholder="请选择" @change="selectSizeItem">
-          <el-option
-            v-for="item in size"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </div>
-      <span class="alert" v-show="alertFlag">{{ alertText }}</span>
-      <button class="shopping-cart" @click="addShoppingCart">
-        <i class="fa fa-shopping-cart"></i>
-        &nbsp;添加到购物车
-      </button>
-    </div>
+    <good-list :adjust=true title="随便看看" :goods="extraGood" v-show="showFlag"></good-list>
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
   import loading from 'base/loading/loading'
+  import GoodList from 'base/good-list/good-list'
   import VueSelectImage from 'vue-select-image'
   import VueStar from 'vue-star'
   import {getGood, addShoppingCart, addFavourite} from 'api/api'
@@ -81,13 +86,15 @@
         },
         size: [],
         color: [],
-        radio2: 0,
-        value2: '',
+        colorItem: '',
+        sizeItem: '',
         showFlag: false,
         singleColor: '',
         singleSize: '',
         alertFlag: false,
-        alertText: ''
+        alertText: '',
+        extraGood: [],
+        sw: ''
       }
     },
     created() {
@@ -103,6 +110,19 @@
       },
       selectColorItem(color) {
         this.singleColor = color
+        this.dataImages.splice(0, this.dataImages.length)
+        for (let i = 0; i < this.good.cs.length; i++) {
+          if (this.good.cs[i].goods_color === color) {
+            this.img = this.good.cs[i].img[0].image
+            for (let j = 0; j < this.good.cs[i].img.length; j++) {
+              this.dataImages.push({
+                id: j + 1,
+                src: this.good.cs[i].img[j].image
+              })
+            }
+            break
+          }
+        }
       },
       selectSizeItem(size) {
         this.singleSize = size
@@ -145,10 +165,11 @@
         this.showFlag = false
         this.alertFlag = false
         this.alertText = ''
-        this.radio2 = ''
-        this.value2 = ''
+        this.colorItem = ''
+        this.sizeItem = ''
         this.singleColor = ''
         this.singleSize = ''
+        this.extraGood = []
         this._getGoodDetail()
       },
       _getGoodDetail() {
@@ -162,7 +183,9 @@
           this._getImageData()
           this._getSize()
           this._getColor()
+          this._getExtraGood()
           this.showFlag = true
+          console.log(this.dataImages)
         })
       },
       _getGender() {
@@ -219,12 +242,33 @@
         for (let i = 0; i < result.length; i++) {
           this.color.push(result[i])
         }
+      },
+      _getExtraGood() {
+        let params = {}
+        this.showFlag = false
+        getGood(params).then((res) => {
+          let extra = new Set()
+          while (extra.size < 4) {
+            // 生成随机数
+            let random = Math.floor(Math.random() * (res.data.results.length))
+            // 推荐列表不能显示本页面商品
+            if ((this.good.id - 1) === random) {
+              continue
+            }
+            extra.add(random)
+          }
+          Array.from(extra).forEach((item) => {
+            this.extraGood.push(res.data.results[item])
+          })
+          this.showFlag = true
+        })
       }
     },
     components: {
       loading,
       VueSelectImage,
-      VueStar
+      VueStar,
+      GoodList
     }
   }
 </script>
@@ -300,6 +344,7 @@
           background-color: #ffffff
           border: 0.5px solid #8b0000
           transition: all 0.3s
+
   .fa
     font-size: 1.5em
 </style>
