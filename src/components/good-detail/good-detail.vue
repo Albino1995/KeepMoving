@@ -29,26 +29,27 @@
       </div>
     </div>
     <div class="size-buy-wrapper" v-show="showFlag">
-      <span>型号: {{this.params.search}}</span>
+      <span>型号: {{params.search}}</span>
       <span>选择款式</span>
       <div class="color-selection">
-        <el-radio-group v-model="radio2">
-          <el-radio v-for="(item, index) in color" :key="item.id" :label=index>{{ item }}</el-radio>
+        <el-radio-group v-model="radio2" @change="selectColorItem">
+          <el-radio v-for="item in color" :key="item" :label=item>{{ item }}</el-radio>
         </el-radio-group>
       </div>
       <span>选择尺码</span>
       <div class="size-selection">
-        <el-select v-model="value2" placeholder="请选择">
+        <el-select v-model="value2" placeholder="请选择" @change="selectSizeItem">
           <el-option
             v-for="item in size"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-            :disabled="item.disabled">
+          >
           </el-option>
         </el-select>
       </div>
-      <button class="shopping-cart">
+      <span class="alert" v-show="alertFlag">{{ alertText }}</span>
+      <button class="shopping-cart" @click="addShoppingCart">
         <i class="fa fa-shopping-cart"></i>
         &nbsp;添加到购物车
       </button>
@@ -60,7 +61,7 @@
   import loading from 'base/loading/loading'
   import VueSelectImage from 'vue-select-image'
   import VueStar from 'vue-star'
-  import {getGood} from 'api/api'
+  import {getGood, addShoppingCart} from 'api/api'
 
   export default {
     data() {
@@ -76,37 +77,18 @@
           'toolbar': false,
           'title': false
         },
-        options2: [
-          {
-            value: '选项1',
-            label: '黄金糕'
-          },
-          {
-            value: '选项2',
-            label: '双皮奶',
-            disabled: true
-          },
-          {
-            value: '选项3',
-            label: '蚵仔煎'
-          },
-          {
-            value: '选项4',
-            label: '龙须面'
-          },
-          {
-            value: '选项5',
-            label: '北京烤鸭'
-          }
-        ],
         size: [],
         color: [],
         radio2: 0,
         value2: '',
-        showFlag: false
+        showFlag: false,
+        singleColor: '',
+        singleSize: '',
+        alertFlag: false,
+        alertText: ''
       }
     },
-    activated() {
+    created() {
       this._getGoodDetail()
     },
     watch: {
@@ -117,8 +99,46 @@
       onSelectImage(data) {
         this.img = data.src
       },
+      selectColorItem(color) {
+        this.singleColor = color
+      },
+      selectSizeItem(size) {
+        this.singleSize = size
+      },
+      addShoppingCart() {
+        let cs = this.good.cs
+        if (!this.singleColor) {
+          this.alertFlag = true
+          this.alertText = '请选择款式'
+          return
+        }
+        if (!this.singleSize) {
+          this.alertFlag = true
+          this.alertText = '请选择尺码'
+          return
+        }
+        cs.forEach((item) => {
+          if (item.goods_color === this.singleColor && item.goods_size === this.singleSize) {
+            if (item.goods_num === 0) {
+              this.alertFlag = true
+              this.alertText = '商品暂缺'
+              return
+            }
+            let params = {}
+            params.goods = item.id
+            params.nums = 1
+            addShoppingCart(params).then((res) => {
+              console.log(res.data)
+            })
+          }
+        })
+      },
       _getGoodDetail() {
         this.showFlag = false
+        this.alertFlag = false
+        this.alertText = ''
+        this.radio2 = 1
+        this.value2 = ''
         this.params.search = this.$route.params.id
         if (!this.params.search) {
           return
@@ -168,7 +188,7 @@
         for (let i = 0; i < result.length; i++) {
           this.size.push(
             {
-              value: '选项' + (i + 1),
+              value: result[i],
               label: result[i]
             }
           )
@@ -186,7 +206,6 @@
         for (let i = 0; i < result.length; i++) {
           this.color.push(result[i])
         }
-        console.log(this.color)
       }
     },
     components: {
@@ -252,6 +271,9 @@
         font-size: 12px
         letter-spacing: 1px
         margin: 10px 0
+      .alert
+        color: #8b0000
+        font-size: 13px
       .shopping-cart
         margin-top 50px
         color: #ffffff
