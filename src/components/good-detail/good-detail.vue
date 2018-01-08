@@ -91,11 +91,11 @@
       }
     },
     created() {
-      this._getGoodDetail()
+      this._initGoodDetail()
     },
     watch: {
       // 切换至不同id的详情页重新初始化
-      '$route.params.id': '_getGoodDetail'
+      '$route.params.id': '_initGoodDetail'
     },
     methods: {
       onSelectImage(data) {
@@ -141,7 +141,7 @@
           console.log(res.data)
         })
       },
-      _getGoodDetail() {
+      _initGoodDetail() {
         this.showFlag = false
         this.alertFlag = false
         this.alertText = ''
@@ -149,6 +149,9 @@
         this.value2 = ''
         this.singleColor = ''
         this.singleSize = ''
+        this._getGoodDetail()
+      },
+      _getGoodDetail() {
         this.params.search = this.$route.params.id
         if (!this.params.search) {
           return
