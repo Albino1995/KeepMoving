@@ -19,7 +19,7 @@
       <div class="product-img" v-viewer="options" v-show="$route.params.id">
         <div class="like-button">
           <vue-star animate="animated bounceIn" color="#F05654">
-            <i slot="icon" class="fa fa-heart" ref="icon"></i>
+            <i slot="icon" class="fa fa-heart" ref="icon" @click="addFavourites"></i>
           </vue-star>
         </div>
         <img :src=img width="450" height="450"/>
@@ -61,7 +61,9 @@
   import loading from 'base/loading/loading'
   import VueSelectImage from 'vue-select-image'
   import VueStar from 'vue-star'
-  import {getGood, addShoppingCart} from 'api/api'
+  import {getGood, addShoppingCart, addFavourite} from 'api/api'
+
+  const FavouriteNumberDefault = 1
 
   export default {
     data() {
@@ -106,7 +108,6 @@
         this.singleSize = size
       },
       addShoppingCart() {
-        let cs = this.good.cs
         if (!this.singleColor) {
           this.alertFlag = true
           this.alertText = '请选择款式'
@@ -117,7 +118,7 @@
           this.alertText = '请选择尺码'
           return
         }
-        cs.forEach((item) => {
+        this.good.cs.forEach((item) => {
           if (item.goods_color === this.singleColor && item.goods_size === this.singleSize) {
             if (item.goods_num === 0) {
               this.alertFlag = true
@@ -125,20 +126,29 @@
               return
             }
             let params = {}
-            params.goods = item.id
-            params.nums = 1
+            params.goods = String(item.id)
+            params.nums = FavouriteNumberDefault
             addShoppingCart(params).then((res) => {
               console.log(res.data)
             })
           }
         })
       },
+      addFavourites() {
+        let params = {}
+        params.goods = String(this.good.id)
+        addFavourite(params).then((res) => {
+          console.log(res.data)
+        })
+      },
       _getGoodDetail() {
         this.showFlag = false
         this.alertFlag = false
         this.alertText = ''
-        this.radio2 = 1
+        this.radio2 = ''
         this.value2 = ''
+        this.singleColor = ''
+        this.singleSize = ''
         this.params.search = this.$route.params.id
         if (!this.params.search) {
           return

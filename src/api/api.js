@@ -17,3 +17,7 @@ export const getGood = params => {
 export const addShoppingCart = params => {
   return axios.post(`${host}/shoppingcarts/`, params)
 }
+// 添加收藏
+export const addFavourite = params => {
+  return axios.post(`${host}/userfavs/`, params)
+}
