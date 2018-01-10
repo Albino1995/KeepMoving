@@ -45,6 +45,7 @@
               :key="item.value"
               :label="item.label"
               :value="item.value"
+              :disabled="item.disabled"
             >
             </el-option>
           </el-select>
@@ -93,8 +94,7 @@
         singleSize: '',
         alertFlag: false,
         alertText: '',
-        extraGood: [],
-        sw: ''
+        extraGood: []
       }
     },
     created() {
@@ -109,8 +109,21 @@
         this.img = data.src
       },
       selectColorItem(color) {
+        this._getSize()
         this.singleColor = color
         this.dataImages.splice(0, this.dataImages.length)
+        // 处理缺货选项不可选中
+        for (let i = 0; i < this.good.cs.length; i++) {
+          if (this.good.cs[i].goods_num === 0 && this.good.cs[i].goods_color === color) {
+            let sizeValue = []
+            this.size.forEach((item) => {
+              sizeValue.push(item.value)
+            })
+            let sizeIndex = sizeValue.findIndex((val) => val === this.good.cs[i].goods_size)
+            this.size[sizeIndex].disabled = true
+          }
+        }
+        // 预览图切换加载
         for (let i = 0; i < this.good.cs.length; i++) {
           if (this.good.cs[i].goods_color === color) {
             this.img = this.good.cs[i].img[0].image
@@ -181,11 +194,10 @@
           this.good = res.data.results[0]
           this._getGender()
           this._getImageData()
-          this._getSize()
           this._getColor()
+          this._getSize()
           this._getExtraGood()
           this.showFlag = true
-          console.log(this.dataImages)
         })
       },
       _getGender() {
