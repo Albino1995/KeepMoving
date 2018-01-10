@@ -153,11 +153,6 @@
         }
         this.good.cs.forEach((item) => {
           if (item.goods_color === this.singleColor && item.goods_size === this.singleSize) {
-            if (item.goods_num === 0) {
-              this.alertFlag = true
-              this.alertText = '商品暂缺'
-              return
-            }
             let params = {}
             params.goods = String(item.id)
             params.nums = FavouriteNumberDefault
