@@ -21,3 +21,7 @@ export const addShoppingCart = params => {
 export const addFavourite = params => {
   return axios.post(`${host}/userfavs/`, params)
 }
+// 登录
+export const login = params => {
+  return axios.post(`${host}/login/`, params)
+}

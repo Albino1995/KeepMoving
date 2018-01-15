@@ -12,9 +12,10 @@
           <el-form-item label="账 户" prop="username">
             <el-input v-model="ruleForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="密 码" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
+          <el-form-item label="密 码" prop="password">
+            <el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input>
           </el-form-item>
+          <span class="alert" v-show="alertFlag">账户或密码错误</span>
           <div class="form-bottom">
             <span class="reg-tips">没有账户?
               <router-link class="reg-link" to="/register">
@@ -36,6 +37,10 @@
 </template>
 
 <script>
+  import {login} from 'api/api'
+  import cookie from 'common/js/cookie'
+  import {mapMutations} from 'vuex'
+
   export default {
     data() {
       let checkUsername = (rule, value, callback) => {
@@ -44,14 +49,14 @@
         }
       }
       let validatePass = (rule, value, callback) => {
-        if (value === '') {
+        if (!value) {
           callback(new Error('请输入密码'))
         }
       }
       return {
         ruleForm: {
           username: '',
-          pass: ''
+          password: ''
         },
         rules: {
           username: [
@@ -60,21 +65,47 @@
               trigger: 'blur'
             }
           ],
-          pass: [
+          password: [
             {
               validator: validatePass,
               trigger: 'blur'
             }
           ]
-        }
+        },
+        alertFlag: false
       }
+    },
+    created() {
+      this.alertFlag = false
+    },
+    watch: {
+      'ruleForm.username': 'defaultAlertFlag',
+      'ruleForm.password': 'defaultAlertFlag'
     },
     methods: {
       login() {
-        console.log('login')
+        let params = {
+          username: this.ruleForm.username,
+          password: this.ruleForm.password
+        }
+        if (params.username && params.password) {
+          login(params).then((res) => {
+            console.log(res.data)
+            cookie.setCookie('name', params.username, 7)
+            cookie.setCookie('token', res.data.token, 7)
+            this.setUserInfo()
+          }, () => {
+            this.alertFlag = true
+          })
+        }
+      },
+      defaultAlertFlag() {
+        this.alertFlag = false
       }
     },
-    components: {}
+    ...mapMutations({
+      setUserInfo: 'SET_USER_INFO'
+    })
   }
 </script>
 
@@ -102,12 +133,16 @@
           font-weight: 700
 
       .form
+        .alert
+          color: #f56c6c
+          font-size: 12px
+          margin-left: 50px
         .form-bottom
-          display flex
-          flex-direction column
+          display: flex
+          flex-direction: column
           span
-            display block
-            padding 3px
+            display: block
+            padding: 3px
           .reg-tips
             padding-top: 10px
             font-size: 12px

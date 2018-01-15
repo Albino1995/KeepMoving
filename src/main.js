@@ -4,6 +4,7 @@ import router from './router'
 import VueLazyLoad from 'vue-lazyload'
 import Viewer from 'v-viewer'
 import Element from 'element-ui'
+import store from './store'
 
 import 'font-awesome/css/font-awesome.css'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -21,5 +22,6 @@ Vue.use(VueLazyLoad, {
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
