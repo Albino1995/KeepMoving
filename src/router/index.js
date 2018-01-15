@@ -27,6 +27,12 @@ const SearchResults = (resolve) => {
   })
 }
 
+const Login = (resolve) => {
+  import('components/login/login').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -52,6 +58,10 @@ export default new Router({
     {
       path: '/search-results/:keyword',
       component: SearchResults
+    },
+    {
+      path: '/login',
+      component: Login
     }
   ]
 })
