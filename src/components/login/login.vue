@@ -27,9 +27,7 @@
                 <i class="fa fa-weibo fa-style"></i>
               </a>
             </span>
-            <div class="button-group">
-              <button class="login" @click="login">登 录</button>
-            </div>
+            <button class="login" @click="login">登 录</button>
           </div>
         </el-form>
       </div>
@@ -89,8 +87,8 @@
     padding-bottom: 30px
     .form-wrapper
       padding: 50px
+      margin: 30px 0
       width: 500px
-      margin-top: 18px
       border: 0.5px solid #d3d3d3
       .title
         span
@@ -105,31 +103,34 @@
 
       .form
         .form-bottom
+          display flex
+          flex-direction column
+          span
+            display block
+            padding 3px
           .reg-tips
             padding-top: 10px
             font-size: 12px
             .reg-link
               color: #ffA500
           .third-part-login
-            margin-left: 245px
             font-size: 15px
             font-weight: 700
             color: #808080
             .fa-style
               color: #ff0000
               font-size: 20px
-          .button-group
-            margin: 30px 0 0 420px
-            .login
-              color: #ffffff
-              background-color: #000000
-              border: none
-              height: 40px
-              width: 80px
-              outline: none
-              &:hover
-                color: #000000
-                background-color: #ffffff
-                border: 0.5px solid #000000
-                transition: all 0.3s
+          .login
+            color: #ffffff
+            align-self: flex-end
+            background-color: #000000
+            border: none
+            height: 40px
+            width: 80px
+            outline: none
+            &:hover
+              color: #000000
+              background-color: #ffffff
+              border: 0.5px solid #000000
+              transition: all 0.3s
 </style>
