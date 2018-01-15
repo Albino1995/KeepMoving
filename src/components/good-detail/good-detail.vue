@@ -339,7 +339,7 @@
         color: #8b0000
         font-size: 13px
       .shopping-cart
-        margin-top 50px
+        margin-top: 50px
         color: #ffffff
         background-color: #8b0000
         border: none
