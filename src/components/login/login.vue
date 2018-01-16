@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import {login} from 'api/api'
   import cookie from 'common/js/cookie'
   import {mapMutations} from 'vuex'
@@ -135,7 +135,6 @@
         .bold
           font-size: 18px
           font-weight: 700
-
       .form
         .alert
           color: #f56c6c

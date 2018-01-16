@@ -33,6 +33,12 @@ const Login = (resolve) => {
   })
 }
 
+const Register = (resolve) => {
+  import('components/register/register').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -62,6 +68,10 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/register',
+      component: Register
     }
   ]
 })

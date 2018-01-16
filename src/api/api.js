@@ -25,3 +25,7 @@ export const addFavourite = params => {
 export const login = params => {
   return axios.post(`${host}/login/`, params)
 }
+// 注册
+export const register = params => {
+  return axios.post(`${host}/users/`, params)
+}
