@@ -77,6 +77,9 @@
     },
     created() {
       this.alertFlag = false
+      cookie.delCookie('token')
+      cookie.delCookie('name')
+      this.setUserInfo()
     },
     watch: {
       'ruleForm.username': 'defaultAlertFlag',
@@ -90,10 +93,10 @@
         }
         if (params.username && params.password) {
           login(params).then((res) => {
-            console.log(res.data)
             cookie.setCookie('name', params.username, 7)
             cookie.setCookie('token', res.data.token, 7)
             this.setUserInfo()
+            this.$router.push({path: '/index'})
           }, () => {
             this.alertFlag = true
           })
@@ -101,11 +104,12 @@
       },
       defaultAlertFlag() {
         this.alertFlag = false
-      }
-    },
-    ...mapMutations({
-      setUserInfo: 'SET_USER_INFO'
-    })
+      },
+      ...mapMutations({
+        setUserInfo: 'SET_USER_INFO'
+      })
+    }
+
   }
 </script>
 
