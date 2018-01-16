@@ -3,28 +3,34 @@
     <div class="menu">
       <div class="client-menu">
         <ul class="client-menu-list">
-          <li>
-            <img src="../../common/image/icon/me.png"/>
+          <li v-show="userInfo.token">
+            <i class="fa fa-user"></i>
             <span>
-              <router-link class="text" tag="a" to="/me">我的KeepMoving</router-link>
+              <router-link class="text" tag="a" to="/me">{{userInfo.name}}</router-link>
             </span>
           </li>
-          <li>
-            <img src="../../common/image/icon/login.png"/>
+          <li v-show="!userInfo.token">
+            <i class="fa fa-star"></i>
             <span>
               <router-link class="text" tag="a" to="/login">登录</router-link>
             </span>
           </li>
           <li>
-            <img src="../../common/image/icon/collect.png"/>
+            <i class="fa fa-heart"></i>
             <span>
               <router-link class="text" tag="a" to="/collection">收藏</router-link>
             </span>
           </li>
           <li>
-            <img src="../../common/image/icon/shoppingcart.png"/>
+            <i class="fa fa-shopping-cart"></i>
             <span>
               <router-link class="text" tag="a" to="/shopping_cart">购物车</router-link>
+            </span>
+          </li>
+          <li v-show="userInfo.token">
+            <i class="fa fa-star-half"></i>
+            <span @click="logout">
+              登出
             </span>
           </li>
         </ul>
@@ -80,6 +86,8 @@
 
 <script type="text/ecmascript-6">
   import SearchBox from 'base/search-box/search-box'
+  import { mapGetters, mapMutations } from 'vuex'
+  import cookie from 'common/js/cookie'
 
   export default {
     data() {
@@ -117,13 +125,26 @@
         showPopup: -1
       }
     },
+    computed: {
+      ...mapGetters([
+        'userInfo'
+      ])
+    },
     methods: {
       overCategories(index) {
         this.showPopup = index
       },
       outCategories() {
         this.showPopup = -1
-      }
+      },
+      logout() {
+        cookie.delCookie('token')
+        cookie.delCookie('name')
+        this.setUserInfo()
+      },
+      ...mapMutations({
+        setUserInfo: 'SET_USER_INFO'
+      })
     },
     components: {
       SearchBox
@@ -152,10 +173,8 @@
             height: 19px
             display: inline
             margin-left: 25px
-            img
-              height: 16px
-              width: 16px
             span
+              cursor: pointer
               .text
                 margin-left: 4px
                 &:hover
