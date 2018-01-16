@@ -5,10 +5,14 @@ import VueLazyLoad from 'vue-lazyload'
 import Viewer from 'v-viewer'
 import Element from 'element-ui'
 import store from './store'
+import axios from 'axios'
 
+import 'common/js/http'
 import 'font-awesome/css/font-awesome.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/stylus/index.styl'
+
+Vue.prototype.$http = axios
 
 Vue.use(Viewer)
 
