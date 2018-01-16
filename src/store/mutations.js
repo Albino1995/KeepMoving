@@ -7,7 +7,6 @@ const mutations = {
       name: cookie.getCookie('name'),
       token: cookie.getCookie('token')
     }
-    console.log(state.userInfo)
   }
 }
 
