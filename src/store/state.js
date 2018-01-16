@@ -1,5 +1,10 @@
+import cookie from 'common/js/cookie'
+
 const state = {
-  userInfo: {}
+  userInfo: {
+    name: cookie.getCookie('name') || '',
+    token: cookie.getCookie('token') || ''
+  }
 }
 
 export default state
