@@ -64,7 +64,9 @@
       this.setUserInfo()
     },
     watch: {
-      'ruleForm.mobile': 'defaultAlertText'
+      'ruleForm.mobile': 'defaultAlertText',
+      'ruleForm.code': 'defaultAlertText',
+      'ruleForm.password': 'defaultAlertText'
     },
     methods: {
       sendCode() {
