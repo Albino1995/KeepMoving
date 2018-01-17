@@ -32,10 +32,14 @@
         </el-form>
       </div>
     </div>
+    <confirm @confirm="goIndex"
+             text="欢迎成为KeepMoving会员,稍后将跳转至首页或者可以点击下方按钮前往首页"
+             :cancelShow=false ref="confirm"></confirm>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Confirm from 'base/confirm/confirm'
   import {register, getCode} from 'api/api'
   import cookie from 'common/js/cookie'
   import {mapMutations} from 'vuex'
@@ -58,6 +62,9 @@
       cookie.delCookie('token')
       cookie.delCookie('name')
       this.setUserInfo()
+    },
+    deactivated() {
+      clearTimeout(this.timer)
     },
     watch: {
       'ruleForm.mobile': 'defaultAlertText'
@@ -101,11 +108,11 @@
           this.alertText = '密码不能为空'
           return
         }
-        console.log(params)
         register(params).then((res) => {
           cookie.setCookie('name', res.data.username, 7)
           cookie.setCookie('token', res.data.token, 7)
           this.setUserInfo()
+          this._showConfirm()
         }).catch((err) => {
           this._doErr(err)
         })
@@ -113,15 +120,29 @@
       defaultAlertText() {
         this.alertText = ''
       },
+      goIndex() {
+        this.$router.push({path: '/index'})
+        this.$refs.confirm.hide()
+      },
       _doErr(obj) {
         for (let i in obj) {
           this.alertText = obj[i][0]
           break
         }
       },
+      _showConfirm() {
+        this.$refs.confirm.show()
+        this.timer = setTimeout(() => {
+          this.$router.push({path: '/index'})
+          this.$refs.confirm.hide()
+        }, 5000)
+      },
       ...mapMutations({
         setUserInfo: 'SET_USER_INFO'
       })
+    },
+    components: {
+      Confirm
     }
   }
 </script>
