@@ -22,6 +22,11 @@
           </el-form-item>
           <span class="alert">{{alertText}}</span>
           <div class="form-bottom">
+            <span class="reg-tips">已有账户?
+              <router-link class="reg-link" to="/login">
+                [登录]
+              </router-link>
+            </span>
             <button class="register" @click="register">注 册</button>
           </div>
         </el-form>
@@ -31,7 +36,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {register} from 'api/api'
+  import {register, getCode} from 'api/api'
+  import cookie from 'common/js/cookie'
+  import {mapMutations} from 'vuex'
 
   const Minute = 60000
 
@@ -47,17 +54,33 @@
         alertText: ''
       }
     },
+    activated() {
+      cookie.delCookie('token')
+      cookie.delCookie('name')
+      this.setUserInfo()
+    },
     watch: {
       'ruleForm.mobile': 'defaultAlertText'
     },
     methods: {
       sendCode() {
+        if (this.sendFlag === true) {
+          return
+        }
         this.sendFlag = true
         if (this.sendFlag === true) {
+          let params = {}
+          params.mobile = this.ruleForm.mobile
+          getCode(params).then((res) => {
+          }).catch((err) => {
+            this._doErr(err)
+          })
           this.$refs.code.$el.innerHTML = '已发送'
+          this.$refs.code.$el.style.cursor = 'not-allowed'
           setTimeout(() => {
             this.sendFlag = false
             this.$refs.code.$el.innerHTML = '获取验证'
+            this.$refs.code.$el.style.cursor = 'default'
           }, Minute)
         }
       },
@@ -80,7 +103,9 @@
         }
         console.log(params)
         register(params).then((res) => {
-          console.log(res.data)
+          cookie.setCookie('name', res.data.username, 7)
+          cookie.setCookie('token', res.data.token, 7)
+          this.setUserInfo()
         }).catch((err) => {
           this._doErr(err)
         })
@@ -93,7 +118,10 @@
           this.alertText = obj[i][0]
           break
         }
-      }
+      },
+      ...mapMutations({
+        setUserInfo: 'SET_USER_INFO'
+      })
     }
   }
 </script>
@@ -127,20 +155,17 @@
           margin-left: 50px
         .form-bottom
           display: flex
-          flex-direction: row
-          justify-content: flex-end
-          .code
-            color: #ffffff
-            background-color: #000000
-            border: none
-            height: 40px
-            width: 40px
-            outline: none
-            margin-right 100px
-          /*border-radius: 100%*/
-
+          flex-direction: column
+          /*justify-content: flex-end*/
+          .reg-tips
+            margin-top: 10px
+            padding-top: 10px
+            font-size: 12px
+            .reg-link
+              color: #ffA500
           .register
             color: #ffffff
+            align-self: flex-end
             background-color: #000000
             border: none
             height: 40px

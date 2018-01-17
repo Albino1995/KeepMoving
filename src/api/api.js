@@ -29,3 +29,7 @@ export const login = params => {
 export const register = params => {
   return axios.post(`${host}/users/`, params)
 }
+// 验证码
+export const getCode = params => {
+  return axios.post(`${host}/codes/`, params)
+}
