@@ -75,7 +75,7 @@
         alertFlag: false
       }
     },
-    created() {
+    activated() {
       this.alertFlag = false
       cookie.delCookie('token')
       cookie.delCookie('name')
