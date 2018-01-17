@@ -63,9 +63,6 @@
       cookie.delCookie('name')
       this.setUserInfo()
     },
-    deactivated() {
-      clearTimeout(this.timer)
-    },
     watch: {
       'ruleForm.mobile': 'defaultAlertText'
     },
@@ -121,6 +118,8 @@
         this.alertText = ''
       },
       goIndex() {
+        // 点击确认后取消自动跳转首页的计时器
+        clearTimeout(this.confirmTimer)
         this.$router.push({path: '/index'})
         this.$refs.confirm.hide()
       },
@@ -132,7 +131,7 @@
       },
       _showConfirm() {
         this.$refs.confirm.show()
-        this.timer = setTimeout(() => {
+        this.confirmTimer = setTimeout(() => {
           this.$router.push({path: '/index'})
           this.$refs.confirm.hide()
         }, 5000)
