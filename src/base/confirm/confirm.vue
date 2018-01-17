@@ -100,7 +100,7 @@
             border-top: 0.5px solid #000000
             &.left
               border-right: 0.5px solid #000000
-
+  // CSS @keyframes
   @keyframes confirm-fadein
     0%
       opacity: 0
