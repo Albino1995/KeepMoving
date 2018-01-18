@@ -13,6 +13,10 @@ export const getGood = params => {
   }
   return axios.get(`${host}/goods/`, {params: params})
 }
+// 获取购物车
+export const getShoppingCart = () => {
+  return axios.get(`${host}/shoppingcarts/`)
+}
 // 添加购物车
 export const addShoppingCart = params => {
   return axios.post(`${host}/shoppingcarts/`, params)
