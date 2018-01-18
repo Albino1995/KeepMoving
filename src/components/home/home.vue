@@ -82,11 +82,9 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .home-wrapper
-    position: relative
-    width: 100%
+    display: flex
+    flex-direction: column
     padding-bottom: 30px
     .slider-wrapper
-      position: relative
-      width: 100%
       overflow: hidden
 </style>
