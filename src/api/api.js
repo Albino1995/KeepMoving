@@ -41,3 +41,7 @@ export const getCode = params => {
 export const getUserFav = () => {
   return axios.get(`${host}/userfavs/`)
 }
+// 删除用户收藏
+export const deleteUserFav = id => {
+  return axios.delete(`${host}/userfavs/` + id + '/')
+}
