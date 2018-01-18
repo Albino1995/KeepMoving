@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-wrapper">
     <div class="button-wrapper">
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -200,11 +200,14 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .button-wrapper
-    position: absolute
-    right: 40px
-    top: 240px
-    z-index: 50
-    span
-      letter-spacing: 1px
+  .category-wrapper
+    display: flex
+    flex-direction: column
+    .button-wrapper
+      position: absolute
+      right: 40px
+      top: 240px
+      z-index: 50
+      span
+        letter-spacing: 1px
 </style>
