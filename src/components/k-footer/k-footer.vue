@@ -28,26 +28,22 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .footer-wrapper
-    position: relative
-    width: 100%
+    display: flex
+    flex-direction: column
     background-color: #000000
     color: #f5f5f5
     .line
-      position absolute
-      width 100%
       padding: 30px 0 0 0
       border-bottom: 0.5px solid #f5f5f5
     .footer
-      max-width: 1000px
       margin: 0 auto
       text-align: center
       .footer-list
-        padding-top: 50px
+        padding-top: 30px
         text-align: center
-        width: 100%
       .footer-bottom
         font-size: 12px
-        padding-top: 25px
+        margin-top: 50px
         p
           padding: 15px 0 60px 0
 
