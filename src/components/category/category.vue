@@ -41,7 +41,6 @@
   import Loading from 'base/loading/loading'
   import NoResult from 'base/no-result/no-result'
   import {rdDropButton, rdButton} from 'radon-ui'
-  import 'radon-ui/dist/radon-ui.css'
 
   const footerHeight = 1000
   const pageSize = 12
