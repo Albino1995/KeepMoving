@@ -16,7 +16,7 @@
     props: {
       placeholder: {
         type: String,
-        default: '搜索产品...'
+        default: '搜索商品...'
       }
     }
   }

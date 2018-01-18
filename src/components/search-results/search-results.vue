@@ -31,7 +31,7 @@
     </div>
     <good-list :title="title" :goods="category" :adjust=true v-if="params.search !== ''"></good-list>
     <loading v-show="showMore && params.search !== ''"></loading>
-    <no-result title="抱歉，暂时找不到相关产品" v-show="!category.length && getGoodFlag"></no-result>
+    <no-result title="抱歉，暂时找不到相关商品" v-show="!category.length && getGoodFlag"></no-result>
   </div>
 </template>
 

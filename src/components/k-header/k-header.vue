@@ -18,7 +18,7 @@
           <li>
             <i class="fa fa-heart"></i>
             <span>
-              <router-link class="text" tag="a" to="/collection">收藏</router-link>
+              <router-link class="text" tag="a" to="/favourites">收藏</router-link>
             </span>
           </li>
           <li>
