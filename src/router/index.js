@@ -39,6 +39,12 @@ const Register = (resolve) => {
   })
 }
 
+const UserCenter = (resolve) => {
+  import('components/user-center/user-center').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -72,6 +78,14 @@ export default new Router({
     {
       path: '/register',
       component: Register
+    },
+    {
+      path: '/me',
+      redirect: '/me/info'
+    },
+    {
+      path: '/me/info',
+      component: UserCenter
     }
   ]
 })
