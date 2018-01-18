@@ -19,8 +19,11 @@
         </div>
         <div class="product-img" v-viewer="options" v-show="$route.params.id">
           <div class="like-button">
-            <vue-star color="#F05654">
-              <i slot="icon" class="fa fa-heart" ref="icon" @click="addFavourites"></i>
+            <!--<div class="like">-->
+            <!--<i class="fa fa-heart active"></i>-->
+            <!--</div>-->
+            <vue-star>
+              <i slot="icon" class="fa fa-heart" ref="icon" @click="toggleFavourites"></i>
             </vue-star>
           </div>
           <img :src=img width="450" height="450"/>
@@ -72,7 +75,7 @@
   import Confirm from 'base/confirm/confirm'
   import VueSelectImage from 'vue-select-image'
   import VueStar from 'vue-star'
-  import {getGood, addShoppingCart, addFavourite} from 'api/api'
+  import {getGood, addShoppingCart, getUserFav, addUserFav, deleteUserFav} from 'api/api'
 
   const FavouriteNumberDefault = 1
 
@@ -99,7 +102,8 @@
         singleSize: '',
         alertFlag: false,
         alertText: '',
-        extraGood: []
+        extraGood: [],
+        favFlag: false
       }
     },
     created() {
@@ -169,12 +173,20 @@
           }
         })
       },
-      addFavourites() {
+      toggleFavourites() {
         let params = {}
         params.goods = String(this.good.id)
-        addFavourite(params).then((res) => {
-          console.log(res.data)
-        })
+        if (!this.favFlag) {
+          addUserFav(params).then(() => {
+            this.$refs.icon.style.color = '#F05654'
+            this.favFlag = true
+          })
+        } else {
+          deleteUserFav(params.goods).then(() => {
+            this.$refs.icon.style.color = '#d3d3d3'
+            this.favFlag = false
+          })
+        }
       },
       _initGoodDetail() {
         this.showFlag = false
@@ -202,6 +214,7 @@
           this._getColor()
           this._getSize()
           this._getExtraGood()
+          this._getUserFav()
           this.showFlag = true
         })
       },
@@ -279,6 +292,16 @@
           })
           this.showFlag = true
         })
+      },
+      _getUserFav() {
+        // 获取收藏与否
+        getUserFav(this.good.id).then(() => {
+          this.favFlag = true
+          this.$refs.icon.style.color = '#F05654'
+        }).catch(() => {
+          this.favFlag = false
+          this.$refs.icon.style.color = '#d3d3d3'
+        })
       }
     },
     components: {
@@ -321,6 +344,16 @@
           height: 100px
           left: 420px
           cursor: pointer
+        /*.like*/
+        /*position absolute*/
+        /*display: flex*/
+        /*width: 100px*/
+        /*height: 100px*/
+        /*justify-content: center*/
+        /*.active*/
+        /*height: 27.33px*/
+        /*color: #F05654*/
+        /*align-self: center*/
         img
           margin: 50px 35px 0
       .product-description

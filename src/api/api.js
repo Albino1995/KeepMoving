@@ -21,10 +21,6 @@ export const getShoppingCart = () => {
 export const addShoppingCart = params => {
   return axios.post(`${host}/shoppingcarts/`, params)
 }
-// 添加收藏
-export const addFavourite = params => {
-  return axios.post(`${host}/userfavs/`, params)
-}
 // 登录
 export const login = params => {
   return axios.post(`${host}/login/`, params)
@@ -38,8 +34,15 @@ export const getCode = params => {
   return axios.post(`${host}/codes/`, params)
 }
 // 获取用户收藏
-export const getUserFav = () => {
+export const getUserFav = id => {
+  if (id) {
+    return axios.get(`${host}/userfavs/` + id + '/')
+  }
   return axios.get(`${host}/userfavs/`)
+}
+// 添加用户收藏
+export const addUserFav = params => {
+  return axios.post(`${host}/userfavs/`, params)
 }
 // 删除用户收藏
 export const deleteUserFav = id => {
