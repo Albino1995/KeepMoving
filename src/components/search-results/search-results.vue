@@ -31,6 +31,7 @@
     </div>
     <good-list :title="title" :goods="category" :adjust=true v-if="params.search !== ''"></good-list>
     <loading v-show="showMore && params.search !== ''"></loading>
+    <no-result title="抱歉，暂时找不到相关产品" v-show="!category.length && getGoodFlag"></no-result>
   </div>
 </template>
 
@@ -38,6 +39,7 @@
   import {getGood} from 'api/api'
   import GoodList from 'base/good-list/good-list'
   import Loading from 'base/loading/loading'
+  import NoResult from 'base/no-result/no-result'
 
   const footerHeight = 1000
   const pageSize = 12
@@ -152,7 +154,8 @@
     },
     components: {
       GoodList,
-      Loading
+      Loading,
+      NoResult
     }
   }
 </script>
