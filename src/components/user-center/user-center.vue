@@ -31,11 +31,12 @@
         align-self center
         font-size: 13px
         margin 0 100px
-        height: 15px
+        height: 17px
         padding: 1px
         border-bottom 1px solid #ffffff
         &:hover
           border-bottom 1px solid #000000
+          transition: all 0.6s
       .active
         border-bottom 1px solid #000000
     .form-wrapper
@@ -43,7 +44,7 @@
       padding: 50px
       margin: 30px 0
       width: 500px
-      border: 0.5px solid #d3d3d3
+      border: 1px solid #000000
       .title
         font-size: 24px
         font-weight: 700
