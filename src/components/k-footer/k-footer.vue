@@ -46,5 +46,4 @@
         margin-top: 50px
         p
           padding: 15px 0 60px 0
-
 </style>
