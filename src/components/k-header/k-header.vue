@@ -141,6 +141,7 @@
         cookie.delCookie('token')
         cookie.delCookie('name')
         this.setUserInfo()
+        this.$router.go(0)
       },
       ...mapMutations({
         setUserInfo: 'SET_USER_INFO'
