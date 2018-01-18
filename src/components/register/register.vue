@@ -186,6 +186,7 @@
             .reg-link
               color: #ffA500
           .register
+            cursor: pointer
             color: #ffffff
             align-self: flex-end
             background-color: #000000

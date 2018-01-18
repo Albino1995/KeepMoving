@@ -159,6 +159,7 @@
               color: #ff0000
               font-size: 20px
           .login
+            cursor: pointer
             color: #ffffff
             align-self: flex-end
             background-color: #000000
