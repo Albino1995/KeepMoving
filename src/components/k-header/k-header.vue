@@ -157,11 +157,11 @@
     color: #000000
 
   .header-wrapper
-    position: relative
+    display: flex
+    flex-direction column
     padding: 15px 0 30px 0
-    width: 100%
     .menu
-      float: right
+      text-align: right
       padding: 0 15px
       .client-menu
         font-size: 12px
@@ -181,17 +181,13 @@
                   transition: all 0.3s
                   color: #808080
     .header-pic
-      position: absolute
-      width: 100%
-      top: 34px
+      margin-top: 20px
       text-align: center
       img
         width: 300px
         height: 50px
     .categories
-      padding: 50px 0 0 0
-      width: 100%
-      margin-top: 53px
+      margin-top: 20px
       text-align: center
       padding-bottom: 30px
       border-bottom: 0.5px solid #a9a9a9
