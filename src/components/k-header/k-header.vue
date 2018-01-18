@@ -156,7 +156,6 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   a
     color: #000000
-
   .header-wrapper
     display: flex
     flex-direction column
@@ -182,6 +181,8 @@
                   transition: all 0.3s
                   color: #808080
     .header-pic
+      align-self: center
+      width: 300px
       margin-top: 20px
       text-align: center
       img
@@ -225,10 +226,8 @@
                     display: block
                     &:hover
                       text-decoration: underline
-
   .slide-enter-active, .slide-leave-active
     transition: all 0.4s
-
   .slide-enter, .slide-leave-to
     opacity: 0
 </style>
