@@ -39,6 +39,12 @@ const Register = (resolve) => {
   })
 }
 
+const Favourites = (resolve) => {
+  import('components/favourites/favourites').then((module) => {
+    resolve(module)
+  })
+}
+
 const UserCenter = (resolve) => {
   import('components/user-center/user-center').then((module) => {
     resolve(module)
@@ -86,6 +92,10 @@ export default new Router({
     {
       path: '/me/info',
       component: UserCenter
+    },
+    {
+      path: '/favourites',
+      component: Favourites
     }
   ]
 })

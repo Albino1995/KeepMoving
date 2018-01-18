@@ -37,3 +37,7 @@ export const register = params => {
 export const getCode = params => {
   return axios.post(`${host}/codes/`, params)
 }
+// 获取用户收藏
+export const getUserFav = () => {
+  return axios.get(`${host}/userfavs/`)
+}
