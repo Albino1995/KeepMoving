@@ -58,13 +58,18 @@
       </div>
     </div>
     <good-list :adjust=true title="随便看看" :goods="extraGood" v-show="showFlag"></good-list>
+    <confirm text="已添加到购物车"
+             confirmBtnText="去结算"
+             cancelBtnText="返回"
+             ref="confirm" @confirm="goShoppingCart"></confirm>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
-  import loading from 'base/loading/loading'
+  import Loading from 'base/loading/loading'
   import GoodList from 'base/good-list/good-list'
+  import Confirm from 'base/confirm/confirm'
   import VueSelectImage from 'vue-select-image'
   import VueStar from 'vue-star'
   import {getGood, addShoppingCart, addFavourite} from 'api/api'
@@ -156,8 +161,10 @@
             let params = {}
             params.goods = String(item.id)
             params.nums = FavouriteNumberDefault
-            addShoppingCart(params).then((res) => {
-              console.log(res.data)
+            addShoppingCart(params).then(() => {
+              this.$refs.confirm.show()
+            }).catch(() => {
+              this.$router.push({path: '/login'})
             })
           }
         })
@@ -179,6 +186,9 @@
         this.singleSize = ''
         this.extraGood = []
         this._getGoodDetail()
+      },
+      goShoppingCart() {
+        this.$router.push({path: '/shopping_cart'})
       },
       _getGoodDetail() {
         this.params.search = this.$route.params.id
@@ -272,10 +282,11 @@
       }
     },
     components: {
-      loading,
+      Loading,
       VueSelectImage,
       VueStar,
-      GoodList
+      GoodList,
+      Confirm
     }
   }
 </script>
