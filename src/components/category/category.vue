@@ -40,7 +40,6 @@
   import GoodList from 'base/good-list/good-list'
   import Loading from 'base/loading/loading'
   import NoResult from 'base/no-result/no-result'
-  import {rdDropButton, rdButton} from 'radon-ui'
 
   const footerHeight = 1000
   const pageSize = 12
@@ -191,9 +190,7 @@
     components: {
       GoodList,
       Loading,
-      NoResult,
-      rdDropButton,
-      rdButton
+      NoResult
     }
   }
 </script>
