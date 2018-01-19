@@ -19,9 +19,6 @@
         </div>
         <div class="product-img" v-viewer="options" v-show="$route.params.id">
           <div class="like-button">
-            <!--<div class="like">-->
-            <!--<i class="fa fa-heart active"></i>-->
-            <!--</div>-->
             <vue-star>
               <i slot="icon" class="fa fa-heart" ref="icon" @click="toggleFavourites"></i>
             </vue-star>
@@ -344,16 +341,6 @@
           height: 100px
           left: 420px
           cursor: pointer
-        /*.like*/
-        /*position absolute*/
-        /*display: flex*/
-        /*width: 100px*/
-        /*height: 100px*/
-        /*justify-content: center*/
-        /*.active*/
-        /*height: 27.33px*/
-        /*color: #F05654*/
-        /*align-self: center*/
         img
           margin: 50px 35px 0
       .product-description
