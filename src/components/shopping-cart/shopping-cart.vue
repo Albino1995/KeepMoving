@@ -2,7 +2,12 @@
   <div class="shopping-cart-wrapper">
     <span class="title">购物车</span>
     <div class="shopping-cart" v-show="getShoppingCartFlag">
-      <div class="item">
+      <!--购物车为空时提示区块-->
+      <div class="empty-shopping-cart" v-show="!shoppingCart.length">
+        <span class="empty-tips">您的购物车是空的</span>
+        <span class="empty-content">您的购物车是空的</span>
+      </div>
+      <div class="item" v-show="shoppingCart.length">
         <ul>
           <li v-for="item in shoppingCart">
             <img :src="item.goods.img[0].image" width="160" height="160"/>
@@ -37,7 +42,7 @@
               </div>
             </div>
             <div class="tips">
-              <span class="total">总价: ￥{{item.goods.goods.price * item.nums}}</span>
+              <span class="total">总价:&nbsp;&nbsp;￥{{item.goods.goods.price * item.nums}}</span>
             </div>
           </li>
         </ul>
@@ -49,7 +54,7 @@
         <div class="text-area">
           <div class="order-price">
             <span>订单价格:</span>
-            <span>￥{{total}}</span>
+            <span>￥&nbsp;{{total}}</span>
           </div>
           <div class="fare">
             <span>运费:</span>
@@ -57,11 +62,13 @@
           </div>
           <div class="total">
             <span>总价:</span>
-            <span>￥{{total}}</span>
+            <span>￥&nbsp;{{total}}</span>
           </div>
         </div>
         <div class="pay-button">
-          <button class="get-order">前往结账</button>
+          <button class="get-order" v-show="shoppingCart.length">前往结账</button>
+          <!--购物车为空时禁选按钮-->
+          <button class="none-get-order" v-show="!shoppingCart.length" disabled="disabled">前往结账</button>
         </div>
       </div>
     </div>
@@ -166,8 +173,22 @@
       display: flex
       justify-content: space-around
       margin-bottom: 30px
+      .empty-shopping-cart
+        width: 742px
+        height: 100px
+        padding: 20px
+        border: 1px solid #9a9a9a
+        display: flex
+        flex-direction: column
+        span
+          margin: 7px 0
+        .empty-tips
+          font-size: 15px
+          font-weight: bold
+        .empty-content
+          font-size: 13px
       .item
-        width: 630px
+        width: 742px
         ul
           li
             display: flex
@@ -246,7 +267,6 @@
             cursor: pointer
             height: 40px
             width: 200px
-            getFavFlag: false
             color: #ffffff
             background-color: #000000
             border: none
@@ -256,4 +276,11 @@
               background-color: #ffffff
               border: 0.5px solid #9a9a9a
               transition: all 0.3s
+          .none-get-order
+            height: 40px
+            width: 200px
+            color: #ffffff
+            background-color: #808080
+            border: none
+            outline: none
 </style>

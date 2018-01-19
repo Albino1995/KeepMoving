@@ -23,7 +23,7 @@
       text-align: center
       border-top: 1px solid #d3d3d3
       border-bottom: 1px solid #d3d3d3
-      margin-bottom: 30px
+      margin: 20px 0 30px 0
       display: flex
       justify-content: center
       height: 50px
