@@ -45,6 +45,12 @@ const Favourites = (resolve) => {
   })
 }
 
+const ShoppingCart = (resolve) => {
+  import('components/shopping-cart/shopping-cart').then((module) => {
+    resolve(module)
+  })
+}
+
 const UserCenter = (resolve) => {
   import('components/user-center/user-center').then((module) => {
     resolve(module)
@@ -96,6 +102,10 @@ export default new Router({
     {
       path: '/favourites',
       component: Favourites
+    },
+    {
+      path: '/shopping_cart',
+      component: ShoppingCart
     }
   ]
 })

@@ -162,12 +162,12 @@
               border: 0.5px solid #a9a9a9
               height: 30px
               width: 130px
+              outline: none
               &:hover
                 color: #ffffff
                 background-color: #000000
                 transition: all 0.3s
                 border: none
-                outline: none
             .detail
               color: #ffffff
               align-self: flex-end

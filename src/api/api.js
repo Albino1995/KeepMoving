@@ -21,6 +21,14 @@ export const getShoppingCart = () => {
 export const addShoppingCart = params => {
   return axios.post(`${host}/shoppingcarts/`, params)
 }
+// 删除购物车
+export const deleteShoppingCart = id => {
+  return axios.delete(`${host}/shoppingcarts/` + id + '/')
+}
+// 更新购物车
+export const updateShoppingCart = (id, params) => {
+  return axios.patch(`${host}/shoppingcarts/` + id + '/', params)
+}
 // 登录
 export const login = params => {
   return axios.post(`${host}/login/`, params)
