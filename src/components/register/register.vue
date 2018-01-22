@@ -77,17 +77,18 @@
         if (this.sendFlag === true) {
           let params = {}
           params.mobile = this.ruleForm.mobile
-          getCode(params).then((res) => {
+          getCode(params).then(() => {
+            this.$refs.code.$el.innerHTML = '已发送'
+            this.$refs.code.$el.style.cursor = 'not-allowed'
+            setTimeout(() => {
+              this.sendFlag = false
+              this.$refs.code.$el.innerHTML = '获取验证'
+              this.$refs.code.$el.style.cursor = 'default'
+            }, Minute)
           }).catch((err) => {
+            this.sendFlag = false
             this._doErr(err)
           })
-          this.$refs.code.$el.innerHTML = '已发送'
-          this.$refs.code.$el.style.cursor = 'not-allowed'
-          setTimeout(() => {
-            this.sendFlag = false
-            this.$refs.code.$el.innerHTML = '获取验证'
-            this.$refs.code.$el.style.cursor = 'default'
-          }, Minute)
         }
       },
       register() {
