@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from '../store'
+
 Vue.use(Router)
 
 const Home = (resolve) => {
@@ -57,55 +59,101 @@ const UserCenter = (resolve) => {
   })
 }
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/index',
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/index',
-      component: Home
+      component: Home,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/good/:id',
-      component: GoodDetail
+      component: GoodDetail,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/category/:item1/:item2',
-      component: Category
-    },
-    {
-      path: '/category/:item1/:item2',
-      component: Category
+      component: Category,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/search-results/:keyword',
-      component: SearchResults
+      component: SearchResults,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/register',
-      component: Register
+      component: Register,
+      meta: {
+        requireLogin: false
+      }
     },
     {
       path: '/me',
-      redirect: '/me/info'
+      redirect: '/me/info',
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/me/info',
-      component: UserCenter
+      component: UserCenter,
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/favourites',
-      component: Favourites
+      component: Favourites,
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/shopping_cart',
-      component: ShoppingCart
+      component: ShoppingCart,
+      meta: {
+        requireLogin: true
+      }
     }
   ]
 })
+
+// 路由拦截
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireLogin) {
+    if (store.state.userInfo.token) {
+      next()
+    } else {
+      next({
+        path: '/login'
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
