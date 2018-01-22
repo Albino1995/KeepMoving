@@ -56,3 +56,11 @@ export const addUserFav = params => {
 export const deleteUserFav = id => {
   return axios.delete(`${host}/userfavs/` + id + '/')
 }
+// 获取用户信息
+export const getUserInfo = id => {
+  return axios.get(`${host}/users/1/`)
+}
+// 修改用户信息
+export const updateUserInfo = (params) => {
+  return axios.patch(`${host}/users/1/`, params)
+}
