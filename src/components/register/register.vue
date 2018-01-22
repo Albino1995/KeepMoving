@@ -135,8 +135,9 @@
       _showConfirm() {
         this.$refs.confirm.show()
         this.confirmTimer = setTimeout(() => {
-          this.$router.push({path: '/index'})
           this.$refs.confirm.hide()
+          this.$router.push({path: '/index'})
+          this.$router.go(0)
         }, 5000)
       },
       ...mapMutations({

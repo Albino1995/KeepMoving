@@ -97,6 +97,7 @@
             cookie.setCookie('token', res.data.token, 7)
             this.setUserInfo()
             this.$router.push({path: '/index'})
+            this.$router.go(0)
           }, () => {
             this.alertFlag = true
           })
