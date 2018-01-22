@@ -56,10 +56,7 @@
     activated() {
       this.getFavFlag = false
       this.deleteItem = {}
-      getUserFav().then((res) => {
-        this.favourites = res.data
-        this.getFavFlag = true
-      })
+      this.getFav()
     },
     methods: {
       goIndex() {
@@ -67,6 +64,12 @@
       },
       goDetail(item) {
         this.$router.push({path: `/good/${item.goods.goods_sn}`})
+      },
+      getFav() {
+        getUserFav().then((res) => {
+          this.favourites = res.data
+          this.getFavFlag = true
+        })
       },
       deleteFav() {
         deleteUserFav(this.deleteItem.goods.id).then(() => {
@@ -115,7 +118,7 @@
         .tips-content
           text-align: center
           font-size: 13px
-          margin-bottom :30px
+          margin-bottom: 30px
         .check-button
           color: #ffffff
           align-self: center
