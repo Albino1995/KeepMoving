@@ -40,7 +40,7 @@
 
 <script type="text/ecmascript-6">
   import Confirm from 'base/confirm/confirm'
-  import {register, getCode} from 'api/api'
+  import {register, getCode, getUserInfo} from 'api/api'
   import cookie from 'common/js/cookie'
   import {mapMutations} from 'vuex'
 
@@ -112,7 +112,18 @@
           cookie.setCookie('name', res.data.username, 7)
           cookie.setCookie('token', res.data.token, 7)
           this.setUserInfo()
-          this._showConfirm()
+          // 登录后显示用户的昵称或者是用户的手机，先去获取用户的信息更新cookie
+          getUserInfo().then((res) => {
+            cookie.delCookie('name')
+            this.name = res.data.name
+            if (!res.data.name) {
+              this.name = res.data.mobile
+            }
+            // 更新cookie
+            cookie.setCookie('name', this.name, 7)
+            this.setUserInfo()
+            this._showConfirm()
+          })
         }).catch((err) => {
           this._doErr(err)
         })
@@ -136,8 +147,7 @@
         this.$refs.confirm.show()
         this.confirmTimer = setTimeout(() => {
           this.$refs.confirm.hide()
-          this.$router.push({path: '/index'})
-          this.$router.go(0)
+          this.$router.push({path: '/'})
         }, 5000)
       },
       ...mapMutations({

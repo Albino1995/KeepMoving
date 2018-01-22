@@ -6,7 +6,7 @@
           <li v-show="userInfo.token">
             <i class="fa fa-user"></i>
             <span>
-              <router-link class="text" tag="a" to="/me">{{name}}</router-link>
+              <router-link class="text" tag="a" to="/me">{{userInfo.name}}</router-link>
             </span>
           </li>
           <li v-show="!userInfo.token">
@@ -86,7 +86,6 @@
 
 <script type="text/ecmascript-6">
   import SearchBox from 'base/search-box/search-box'
-  import {getUserInfo} from 'api/api'
   import { mapGetters, mapMutations } from 'vuex'
   import cookie from 'common/js/cookie'
 
@@ -123,19 +122,13 @@
             daide: '/static/sale.jpg'
           }
         ],
-        showPopup: -1,
-        name: ''
+        showPopup: -1
       }
     },
     computed: {
       ...mapGetters([
         'userInfo'
       ])
-    },
-    created() {
-      if (cookie.getCookie('token')) {
-        this.getInfo()
-      }
     },
     methods: {
       overCategories(index) {
@@ -149,14 +142,6 @@
         cookie.delCookie('name')
         this.setUserInfo()
         this.$router.go(0)
-      },
-      getInfo() {
-        getUserInfo().then((res) => {
-          this.name = res.data.name
-          if (!res.data.name) {
-            this.name = res.data.mobile
-          }
-        })
       },
       ...mapMutations({
         setUserInfo: 'SET_USER_INFO'
