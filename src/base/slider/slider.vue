@@ -132,6 +132,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .slider
     min-height: 1px
+    position: relative
     .slider-group
       position: relative
       overflow: hidden
@@ -153,7 +154,7 @@
       position: absolute
       right: 0
       left: 0
-      bottom: 35px
+      bottom: 20px
       text-align: center
       font-size: 0
       .dot
