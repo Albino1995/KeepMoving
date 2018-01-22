@@ -123,13 +123,16 @@
     activated() {
       this.deleteItem = {}
       this.getShoppingCartFlag = false
-      getShoppingCart().then((res) => {
-        this.shoppingCart = res.data
-        this._computeOrderTotal()
-        this.getShoppingCartFlag = true
-      })
+      this.getShoppingCartItem()
     },
     methods: {
+      getShoppingCartItem() {
+        getShoppingCart().then((res) => {
+          this.shoppingCart = res.data
+          this._computeOrderTotal()
+          this.getShoppingCartFlag = true
+        })
+      },
       deleteShoppingCartItem() {
         deleteShoppingCart(this.deleteItem.goods.id).then(() => {
           this.$router.go(0)
