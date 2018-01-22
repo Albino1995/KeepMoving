@@ -177,11 +177,15 @@
           addUserFav(params).then(() => {
             this.$refs.icon.style.color = '#F05654'
             this.favFlag = true
+          }).catch(() => {
+            this.$router.push({path: '/login'})
           })
         } else {
           deleteUserFav(params.goods).then(() => {
             this.$refs.icon.style.color = '#d3d3d3'
             this.favFlag = false
+          }).catch(() => {
+            this.$router.push({path: '/login'})
           })
         }
       },
