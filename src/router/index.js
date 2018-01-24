@@ -59,6 +59,12 @@ const UserCenter = (resolve) => {
   })
 }
 
+const Address = (resolve) => {
+  import('components/address/address').then((module) => {
+    resolve(module)
+  })
+}
+
 let router = new Router({
   routes: [
     {
@@ -134,6 +140,13 @@ let router = new Router({
     {
       path: '/shopping_cart',
       component: ShoppingCart,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/me/address',
+      component: Address,
       meta: {
         requireLogin: true
       }

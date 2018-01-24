@@ -2,8 +2,8 @@
   <div class="user-center-wrapper">
     <nav class="breadcrumb">
       <span class="active">个人信息</span>
-      <span>订单</span>
-      <span>地址簿</span>
+      <router-link tag="span" to="/me/order">订单</router-link>
+      <router-link tag="span" to="/me/address">地址簿</router-link>
     </nav>
     <div class="form-wrapper">
       <span class="title">用户信息</span>
@@ -87,7 +87,10 @@
   .user-center-wrapper
     display: flex
     flex-direction: column
+    justify-content: center
+    align-items: center
     .breadcrumb
+      width: 100%
       text-align: center
       border-top: 1px solid #d3d3d3
       border-bottom: 1px solid #d3d3d3

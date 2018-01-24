@@ -57,10 +57,14 @@ export const deleteUserFav = id => {
   return axios.delete(`${host}/userfavs/` + id + '/')
 }
 // 获取用户信息
-export const getUserInfo = id => {
+export const getUserInfo = () => {
   return axios.get(`${host}/users/1/`)
 }
 // 修改用户信息
 export const updateUserInfo = (params) => {
   return axios.patch(`${host}/users/1/`, params)
+}
+// 获取收货地址
+export const getAddress = () => {
+  return axios.get(`${host}/address/`)
 }
