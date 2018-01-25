@@ -65,6 +65,12 @@ const Address = (resolve) => {
   })
 }
 
+const Order = (resolve) => {
+  import('components/order/order').then((module) => {
+    resolve(module)
+  })
+}
+
 let router = new Router({
   routes: [
     {
@@ -147,6 +153,13 @@ let router = new Router({
     {
       path: '/me/address',
       component: Address,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/me/order',
+      component: Order,
       meta: {
         requireLogin: true
       }

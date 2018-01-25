@@ -76,3 +76,11 @@ export const addAddress = (params) => {
 export const deleteAddress = id => {
   return axios.delete(`${host}/address/` + id + '/')
 }
+// 获取订单信息
+export const getOrder = () => {
+  return axios.get(`${host}/orders/`)
+}
+// 获取订单详情
+export const getOrderDetail = id => {
+  return axios.get(`${host}/orders/` + id + '/')
+}
