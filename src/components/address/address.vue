@@ -64,6 +64,7 @@
     activated() {
       this.params = {}
       this.deleteItem = {}
+      this.addShowFlag = false
       this.alertFlag = false
       this.getUserAddress()
     },
