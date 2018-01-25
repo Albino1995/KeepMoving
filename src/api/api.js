@@ -68,3 +68,11 @@ export const updateUserInfo = (params) => {
 export const getAddress = () => {
   return axios.get(`${host}/address/`)
 }
+// 新增收货地址
+export const addAddress = (params) => {
+  return axios.post(`${host}/address/`, params)
+}
+// 删除收货地址
+export const deleteAddress = id => {
+  return axios.delete(`${host}/address/` + id + '/')
+}

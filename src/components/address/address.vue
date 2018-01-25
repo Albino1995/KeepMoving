@@ -7,7 +7,8 @@
     </nav>
     <div class="form-wrapper">
       <span class="title">地址簿</span>
-      <ul>
+      <span class="add-default" v-show="!address.length">请点击下方按钮去添加您的收货信息</span>
+      <ul v-show="address.length">
         <li v-for="(item, index) in address" class="address">
           <span class="number">地址{{index + 1}}</span>
           <div class="address-detail">
@@ -24,35 +25,96 @@
             <span class="information">收货人联系方式</span>
             <span class="information-value">{{item.signer_mobile}}</span>
           </div>
-          <button class="button">删除地址</button>
+          <button class="button" @click="_showConfirm(item)">删除地址</button>
         </li>
       </ul>
-      <div class="button-add">新增地址</div>
+      <div class="new-address" v-show="addShowFlag">
+        <span class="add-information" >所属地区</span>
+        <v-distpicker @province="getProvince"  @city="getCity" @area="getArea"></v-distpicker>
+        <span class="add-information">详细地址</span>
+        <el-input v-model="params.address" placeholder="请输入内容" class="information-input"></el-input>
+        <span class="add-information">收货人姓名</span>
+        <el-input v-model="params.signer_name" placeholder="请输入内容" class="information-input"></el-input>
+        <span class="add-information">收货人联系方式</span>
+        <el-input v-model="params.signer_mobile" placeholder="请输入内容" class="information-input"></el-input>
+      </div>
+      <span class="alert" v-show="alertFlag">请按要求填写完整信息</span>
+      <div class="button-add" @click="addUserAddress" v-show="addShowFlag">确认添加</div>
+      <div class="button-add" @click="_showNewAddress">新增地址</div>
     </div>
+    <confirm text="您确实想删除这个地址吗" @confirm="deleteUserAddress" ref="confirm"></confirm>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {getAddress} from 'api/api'
+  import {getAddress, deleteAddress, addAddress} from 'api/api'
+  import Confirm from 'base/confirm/confirm'
   import VDistpicker from 'v-distpicker'
 
   export default {
     data() {
       return {
-        address: []
+        address: [],
+        deleteItem: {},
+        params: {},
+        addShowFlag: false,
+        alertFlag: false
       }
     },
     activated() {
+      this.params = {}
+      this.deleteItem = {}
+      this.alertFlag = false
       this.getUserAddress()
+    },
+    watch: {
+      'params.address': '_hideAlert',
+      'params.signer_name': '_hideAlert',
+      'params.signer_mobile': '_hideAlert'
     },
     methods: {
       getUserAddress() {
         getAddress().then((res) => {
           this.address = res.data
         })
+      },
+      addUserAddress() {
+        addAddress(this.params).then(() => {
+          this.$router.go(0)
+        }).catch(() => {
+          this.alertFlag = true
+        })
+      },
+      deleteUserAddress() {
+        deleteAddress(this.deleteItem.id).then(() => {
+          this.$router.go(0)
+        })
+      },
+      getProvince(data) {
+        this._hideAlert()
+        this.params.province = data.value
+      },
+      getCity(data) {
+        this._hideAlert()
+        this.params.city = data.value
+      },
+      getArea(data) {
+        this._hideAlert()
+        this.params.district = data.value
+      },
+      _hideAlert() {
+        this.alertFlag = false
+      },
+      _showNewAddress() {
+        this.addShowFlag = true
+      },
+      _showConfirm(item) {
+        this.deleteItem = item
+        this.$refs.confirm.show()
       }
     },
     components: {
+      Confirm,
       VDistpicker
     }
   }
@@ -89,6 +151,9 @@
       width: 600px
       display: flex
       flex-direction: column
+      .add-default
+        font-size: 13px
+        margin: 50px 0
       .title
         font-size: 24px
         font-weight: 700
@@ -129,6 +194,21 @@
               background-color: #ffffff
               border: 0.5px solid #000000
               transition: all 0.3s
+      .new-address
+        width: 100%
+        display: flex
+        flex-direction: column
+        border: 1px solid #000000
+        padding: 20px 20px 40px 20px
+        margin-bottom: 20px
+        .add-information
+          font-size: 13px
+          margin: 20px 0
+        .information-input
+          width: 350px
+      .alert
+        font-size: 13px
+        color: #8b0000
       .button-add
         display: flex
         justify-content: center
