@@ -121,6 +121,7 @@
       }
     },
     activated() {
+      this.total = 0
       this.deleteItem = {}
       this.getShoppingCartFlag = false
       this.getShoppingCartItem()
