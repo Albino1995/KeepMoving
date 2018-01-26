@@ -24,6 +24,24 @@
                 <span>收货人</span><span>{{orderDetail.signer_name}}</span>
                 <span>总额</span><span>{{orderDetail.order_mount}}</span>
               </div>
+              <div class="good-list">
+                <ul v-if="orderDetail">
+                  <li v-for="good in orderDetail.goods" class="item-detail">
+                    <img :src="good.goods.img[0].image" width="160" height="160"/>
+                    <div class="item-desc">
+                      <span class="name">{{good.goods.goods.name}}</span>
+                      <span class="price">￥&nbsp;&nbsp;{{good.goods.goods.price}}</span>
+                      <span>商品编号&nbsp;&nbsp;&nbsp;&nbsp;{{good.goods.goods.goods_sn}}</span>
+                      <span>数量&nbsp;&nbsp;&nbsp;&nbsp;{{good.goods_num}}</span>
+                      <span>颜色&nbsp;&nbsp;&nbsp;&nbsp;{{good.goods.goods_color}}</span>
+                      <span>尺码&nbsp;&nbsp;&nbsp;&nbsp;{{good.goods.goods_size}}</span>
+                    </div>
+                    <div class="total">
+                      <span>总价:￥&nbsp;{{good.goods_num * good.goods.goods.price}}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </el-collapse-item>
           </li>
         </el-collapse>
@@ -122,9 +140,30 @@
       .order-detail
         display: flex
         flex-direction: column
+        margin-bottom: 10px
         span
           font-size: 13px
           margin: 5px 0
+      .good-list
+        width: 100%
+        ul
+          .item-detail
+            display: flex
+            border-top: 0.5px solid #9a9a9a
+            padding: 20px
+            justify-content: space-between
+            .item-desc
+              display: flex
+              flex-direction: column
+              .name
+                font-size: 15px
+              .price
+                font-size: 15px
+                color: #8b0000
+                margin-bottom: 10px
+            .total
+              span
+                font-size: 12px
       ul
         margin-bottom: 80px
         li

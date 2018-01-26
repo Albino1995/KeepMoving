@@ -78,7 +78,7 @@ export const deleteAddress = id => {
 }
 // 获取订单信息
 export const getOrder = () => {
-  return axios.get(`${host}/orders/`)
+  return axios.get(`${host}/orders/?ordering=-add_time`)
 }
 // 获取订单详情
 export const getOrderDetail = id => {
