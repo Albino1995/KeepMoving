@@ -71,6 +71,12 @@ const Order = (resolve) => {
   })
 }
 
+const Checkout = (resolve) => {
+  import('components/checkout/checkout').then((module) => {
+    resolve(module)
+  })
+}
+
 let router = new Router({
   routes: [
     {
@@ -160,6 +166,13 @@ let router = new Router({
     {
       path: '/me/order',
       component: Order,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/checkout',
+      component: Checkout,
       meta: {
         requireLogin: true
       }

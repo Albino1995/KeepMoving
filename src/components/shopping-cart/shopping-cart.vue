@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="pay-button">
-          <button class="get-order" v-show="shoppingCart.length">前往结账</button>
+          <button class="get-order" v-show="shoppingCart.length" @click="checkout">前往结账</button>
           <!--购物车为空时禁选按钮-->
           <button class="none-get-order" v-show="!shoppingCart.length" disabled="disabled">前往结账</button>
         </div>
@@ -145,6 +145,9 @@
         updateShoppingCart(item.goods.id, params).then(() => {
           this.$router.go(0)
         })
+      },
+      checkout() {
+        this.$router.push({path: '/checkout'})
       },
       _showConfirm(item) {
         this.deleteItem = item
