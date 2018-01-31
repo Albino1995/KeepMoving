@@ -51,6 +51,7 @@
       }
     },
     activated() {
+      this.total = 0
       this.singleAddress = ''
       getAddress().then((res) => {
         this.address = res.data
@@ -144,7 +145,7 @@
       padding: 40px
       background-color: #ffffff
       .pay-button-wait
-        cursor: pointer
+        cursor: not-allowed
         height: 40px
         width: 100px
         color: #ffffff
