@@ -284,6 +284,7 @@
               border: 0.5px solid #9a9a9a
               transition: all 0.3s
           .none-get-order
+            cursor: not-allowed
             height: 40px
             width: 200px
             color: #ffffff
