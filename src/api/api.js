@@ -84,3 +84,7 @@ export const getOrder = () => {
 export const getOrderDetail = id => {
   return axios.get(`${host}/orders/` + id + '/')
 }
+// 添加订单
+export const addOrder = params => {
+  return axios.post(`${host}/orders/`, params)
+}

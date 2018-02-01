@@ -23,6 +23,7 @@
                 <span>订单日期</span><span v-text="_getOrderTime(orderDetail.pay_time)"></span>
                 <span>收货人</span><span>{{orderDetail.signer_name}}</span>
                 <span>总额</span><span>{{orderDetail.order_mount}}</span>
+                <button v-if="_getType(item) === '待支付'" class="pay-button" @click="goPay(item)">立即支付</button>
               </div>
               <div class="good-list">
                 <ul v-if="orderDetail">
@@ -73,6 +74,9 @@
         getOrderDetail(item.id).then((res) => {
           this.orderDetail = res.data
         })
+      },
+      goPay(item) {
+        window.location.href = item.alipay_url
       },
       _getType(item) {
         if (item.pay_status === 'TRADE_SUCCESS') {
@@ -144,6 +148,20 @@
         span
           font-size: 13px
           margin: 5px 0
+        .pay-button
+          cursor: pointer
+          height: 40px
+          width: 100px
+          margin: 10px 0
+          color: #ffffff
+          background-color: #000000
+          border: none
+          outline: none
+          &:hover
+            color: #000000
+            background-color: #ffffff
+            border: 0.5px solid #9a9a9a
+            transition: all 0.3s
       .good-list
         width: 100%
         ul

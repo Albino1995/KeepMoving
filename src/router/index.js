@@ -77,6 +77,12 @@ const Checkout = (resolve) => {
   })
 }
 
+const Success = (resolve) => {
+  import('components/success/success').then((module) => {
+    resolve(module)
+  })
+}
+
 let router = new Router({
   routes: [
     {
@@ -173,6 +179,13 @@ let router = new Router({
     {
       path: '/checkout',
       component: Checkout,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/success',
+      component: Success,
       meta: {
         requireLogin: true
       }

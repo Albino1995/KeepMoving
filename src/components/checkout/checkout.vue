@@ -39,7 +39,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getAddress, getShoppingCart} from 'api/api'
+  import {getAddress, getShoppingCart, addOrder} from 'api/api'
 
   export default {
     data() {
@@ -76,7 +76,9 @@
         params.signer_mobile = this.singleAddress.signer_mobile
         // 取得参数后将singleAddress置为空字符串，防止多次提交的报错
         this.singleAddress = ''
-        console.log(params)
+        addOrder(params).then((res) => {
+          window.location.href = res.data.alipay_url
+        })
       },
       _normalizeItem() {
         let item = this.singleAddress.split('，')
