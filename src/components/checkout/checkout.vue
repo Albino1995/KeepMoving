@@ -51,6 +51,7 @@
       }
     },
     activated() {
+      document.title = '确认订单信息|KeepMoving'
       this.total = 0
       this.singleAddress = ''
       getAddress().then((res) => {

@@ -54,6 +54,7 @@
       }
     },
     activated() {
+      document.title = '收藏|KeepMoving'
       this.getFavFlag = false
       this.deleteItem = {}
       this.getFav()

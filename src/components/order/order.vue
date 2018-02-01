@@ -20,7 +20,7 @@
               </template>
               <div class="order-detail">
                 <span>配送地址</span><span>{{orderDetail.address}}</span>
-                <span>订单日期</span><span v-text="_getOrderTime(orderDetail.pay_time)"></span>
+                <span>支付日期</span><span v-text="_getOrderTime(orderDetail.pay_time)"></span>
                 <span>收货人</span><span>{{orderDetail.signer_name}}</span>
                 <span>总额</span><span>{{orderDetail.order_mount}}</span>
                 <button v-if="_getType(item) === '待支付'" class="pay-button" @click="goPay(item)">立即支付</button>
@@ -62,6 +62,7 @@
       }
     },
     activated() {
+      document.title = '订单列表|KeepMoving'
       this.getUserOrder()
     },
     methods: {

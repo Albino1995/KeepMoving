@@ -59,6 +59,7 @@
       }
     },
     activated() {
+      document.title = '注册|KeepMoving'
       cookie.delCookie('token')
       cookie.delCookie('name')
       this.setUserInfo()

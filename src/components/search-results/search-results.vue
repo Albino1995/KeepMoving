@@ -60,6 +60,7 @@
       }
     },
     created() {
+      document.title = '搜索结果|KeepMoving'
       this._initCategory()
     },
     mounted() {

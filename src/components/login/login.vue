@@ -77,6 +77,7 @@
       }
     },
     activated() {
+      document.title = '登录|KeepMoving'
       this.alertFlag = false
       cookie.delCookie('token')
       cookie.delCookie('name')

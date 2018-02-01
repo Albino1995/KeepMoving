@@ -62,6 +62,7 @@
       }
     },
     activated() {
+      document.title = '地址簿|KeepMoving'
       this.params = {}
       this.deleteItem = {}
       this.addShowFlag = false

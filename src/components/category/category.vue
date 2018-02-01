@@ -75,6 +75,30 @@
       '$route.params': '_initCategory'
     },
     methods: {
+      handleScroll() {
+        // 没获取到total或者获取更多商品没完成直接返回
+        if (!this.getGoodFlag || !this.getMoreFlag) {
+          return
+        }
+        // 滚动到底部
+        if (document.body.scrollHeight - window.scrollY < footerHeight) {
+          this.getMoreFlag = false
+          if (this.total <= pageSize || this.showMore === false) {
+            return
+          }
+          this.params.page++
+          this.getMore()
+        }
+      },
+      getMore() {
+        getGood(this._normalizeItem()).then((res) => {
+          if (!res.data.next) {
+            this.showMore = false
+          }
+          this.category = this.category.concat(res.data.results)
+          this.getMoreFlag = true
+        })
+      },
       _initCategory() {
         this.category = []
         this.item1 = this.$route.params.item1
@@ -121,6 +145,8 @@
         if (this.item2 === 'accessories') {
           bread2 = '戴的'
         }
+        this.document_title = bread1 + '-' + bread2
+        document.title = this.document_title + '|KeepMoving'
         this.title = bread1 + ' / ' + bread2 + ' / ' + this.total + '件商品'
       },
       _normalizeItem() {
@@ -160,30 +186,6 @@
             this.showMore = false
           }
           this.getGoodFlag = true
-        })
-      },
-      handleScroll() {
-        // 没获取到total或者获取更多商品没完成直接返回
-        if (!this.getGoodFlag || !this.getMoreFlag) {
-          return
-        }
-        // 滚动到底部
-        if (document.body.scrollHeight - window.scrollY < footerHeight) {
-          this.getMoreFlag = false
-          if (this.total <= pageSize || this.showMore === false) {
-            return
-          }
-          this.params.page++
-          this.getMore()
-        }
-      },
-      getMore() {
-        getGood(this._normalizeItem()).then((res) => {
-          if (!res.data.next) {
-            this.showMore = false
-          }
-          this.category = this.category.concat(res.data.results)
-          this.getMoreFlag = true
         })
       }
     },

@@ -121,6 +121,7 @@
       }
     },
     activated() {
+      document.title = '购物车|KeepMoving'
       this.total = 0
       this.deleteItem = {}
       this.getShoppingCartFlag = false

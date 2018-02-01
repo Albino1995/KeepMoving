@@ -37,6 +37,9 @@
       this._getNewGoods()
       this._getHotGoods()
     },
+    activated() {
+      document.title = 'KeepMoving商城'
+    },
     methods: {
       _getSlide() {
         getBanner().then((res) => {

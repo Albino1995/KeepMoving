@@ -12,6 +12,7 @@
       }
     },
     activated() {
+      document.title = '订单已支付|KeepMoving'
       setTimeout(() => {
         this.$router.push({path: '/me/order'})
       }, 5000)

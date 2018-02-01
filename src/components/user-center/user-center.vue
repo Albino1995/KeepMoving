@@ -43,6 +43,7 @@
       }
     },
     activated() {
+      document.title = '我的信息|KeepMoving'
       this.getInfo()
     },
     methods: {

@@ -210,6 +210,7 @@
         }
         getGood(this.params).then((res) => {
           this.good = res.data.results[0]
+          document.title = this.good.name + '|KeepMoving'
           this._getGender()
           this._getImageData()
           this._getColor()
