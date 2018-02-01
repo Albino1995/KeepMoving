@@ -1,21 +1,7 @@
 # keepmoving
 
-> A Vue.js project
+KeepMoving商城，前后端分离，数据访问使用RESTful API，详见[说明](https://github.com/Albino1995/KeepMoving_Backend)
 
-## Build Setup
+## 技术选型
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+后端使用django框架和xadmin搭建系统后台，django-rest-framework编写接口，前端使用vue框架，设计会大量参考converse和h&m等网站。
