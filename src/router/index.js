@@ -83,6 +83,12 @@ const Success = (resolve) => {
   })
 }
 
+const NotFound = (resolve) => {
+  import('components/not-found/not-found').then((module) => {
+    resolve(module)
+  })
+}
+
 let router = new Router({
   routes: [
     {
@@ -189,6 +195,10 @@ let router = new Router({
       meta: {
         requireLogin: true
       }
+    },
+    {
+      path: '*',
+      component: NotFound
     }
   ]
 })
